@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3: How to Create Pretrained Models and Run Experiments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        h4 {
+            color: #7f8c8d;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+        
+        .success-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #155724;
+        }
+        
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        
+        .code-block code {
+            color: #ecf0f1;
+        }
+        
+        .inline-code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .task-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 5px solid #6c757d;
+        }
+        
+        .task-section.task1 {
+            border-left-color: #28a745;
+        }
+        
+        .task-section.task2 {
+            border-left-color: #0056b3;
+        }
+        
+        .task-section.task3 {
+            border-left-color: #fd7e14;
+        }
+        
+        .task-section.task4 {
+            border-left-color: #dc3545;
+        }
+        
+        .config-table {
+            font-size: 0.9em;
+        }
+        
+        .config-table td:first-child {
+            font-weight: bold;
+            color: #2c3e50;
+            width: 35%;
+        }
+        
+        .parameter-list {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        .parameter-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-left: 3px solid #3498db;
+            padding-left: 15px;
+        }
+        
+        .parameter-item strong {
+            color: #2c3e50;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .experiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .experiment-card {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        .experiment-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+        }
+        
+        .experiment-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .experiment-label {
+            display: inline-block;
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.95em;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            margin: 10px 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lab 3: How to Create Pretrained Models and Run Experiments</h1>
+        <p><strong>Out-of-Distribution Detection in Federated Learning using Hyperdimensional Computing</strong></p>
+        
+        <div class="info-box">
+            <strong>📘 Overview:</strong> This guide explains how to create pretrained models in Phase 1 and run the five experiments in Phase 2 of the Lab 3 Federated Learning simulation.
+        </div>
+        
+        <div class="toc">
+            <h3>📑 Table of Contents</h3>
+            <ul>
+                <li><a href="#quick-start">Quick Start Guide</a></li>
+                <li><a href="#phase1">Phase 1: Creating Pretrained Models</a></li>
+                <li><a href="#phase2">Phase 2: Running Experiments</a></li>
+                <li><a href="#tasks">Detailed Task Guide</a></li>
+                <li><a href="#configuration">Configuration Reference</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </div>
+        
+        <!-- QUICK START -->
+        <h2 id="quick-start">🚀 Quick Start Guide</h2>
+        
+        <div class="success-box">
+            <strong>TL;DR - Fastest way to run everything:</strong>
+        </div>
+        
+        <h3>Step 1: Test with Quick Mode (Optional - ~5 minutes)</h3>
+        <p>Edit <span class="inline-code">project/main.py</span> line 324:</p>
+        <div class="code-block"><code>QUICK_TEST = True  # For fast testing</code></div>
+        
+        <h3>Step 2: Run Everything</h3>
+        <div class="code-block"><code>cd project
+python3 main.py</code></div>
+        
+        <p>This automatically runs:</p>
+        <ul>
+            <li>✅ Task 4 Pre-training (Phase 1)</li>
+            <li>✅ Task 4 Experiments 1-5 (Phase 2)</li>
+            <li>✅ Generates all plots and results</li>
+        </ul>
+        
+        <!-- PHASE 1 -->
+        <h2 id="phase1">📊 Phase 1: Creating Pretrained Models</h2>
+        
+        <div class="info-box">
+            <strong>What is Phase 1?</strong> Pre-training is the initial federated learning stage where all local models train on clean, in-distribution (ID) data without OOD detection. Models are then saved for Phase 2.
+        </div>
+        
+        <h3>Method 1: Running Task 4 Pre-training (RECOMMENDED)</h3>
+        
+        <p>The easiest way to create pretrained models for all experiments:</p>
+        
+        <div class="code-block"><code># In project/main.py, modify the main block (line 608-661):
+TASK = 4
+
+# Optionally set QUICK_TEST for faster execution:
+# QUICK_TEST = True  (line 324)
+
+# Run the script:
+python3 main.py</code></div>
+        
+        <div class="warning-box">
+            <strong>⚠️ Important:</strong> Task 4 includes both pre-training and experiments. If you only want pre-training, run a single experiment instead (see Method 2).
+        </div>
+        
+        <h3>Method 2: Running Task 2 - Federated Simulation (Alternative)</h3>
+        
+        <p>Run the basic federated learning pre-training phase:</p>
+        
+        <div class="code-block"><code># In project/main.py, modify the main block:
+TASK = 2
+
+# Run the script:
+python3 main.py</code></div>
+        
+        <h4>Configuration for Task 2:</h4>
+        <table class="config-table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Explanation</th>
+            </tr>
+            <tr>
+                <td>rounds</td>
+                <td>2 (default)</td>
+                <td>Number of federated training rounds</td>
+            </tr>
+            <tr>
+                <td>clients</td>
+                <td>5</td>
+                <td>1 global model + 4 local models</td>
+            </tr>
+            <tr>
+                <td>participants</td>
+                <td>4</td>
+                <td>Number of local models participating per round</td>
+            </tr>
+            <tr>
+                <td>epochs</td>
+                <td>1</td>
+                <td>Epochs per round (recommended: 1 for federated)</td>
+            </tr>
+            <tr>
+                <td>enabled (OOD)</td>
+                <td>False</td>
+                <td>OOD detection is disabled in Phase 1</td>
+            </tr>
+            <tr>
+                <td>save</td>
+                <td>True</td>
+                <td>Models are saved for later use</td>
+            </tr>
+        </table>
+        
+        <h4>Datasets Used in Phase 1:</h4>
+        <table>
+            <tr>
+                <th>Index</th>
+                <th>Role</th>
+                <th>Dataset</th>
+                <th>Samples</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>Global Model</td>
+                <td>All ID datasets combined</td>
+                <td>~18,000</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Local Model 1 (ID)</td>
+                <td>Brain Tumor 4600</td>
+                <td>4,600</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Local Model 2 (ID)</td>
+                <td>Brain Tumor 3000</td>
+                <td>3,000</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Local Model 3 (ID)</td>
+                <td>Alzheimer's 5100</td>
+                <td>5,100</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Local Model 4 (ID)</td>
+                <td>Pneumonia 5200</td>
+                <td>5,200</td>
+            </tr>
+        </table>
+        
+        <div class="success-box">
+            <strong>✅ Expected Output:</strong>
+            <ul>
+                <li>Models saved to <span class="inline-code">./.env/.saved/</span></li>
+                <li>Plots saved to <span class="inline-code">./.env/plot/</span></li>
+                <li>Results file with accuracy, loss, and confusion matrices</li>
+            </ul>
+        </div>
+        
+        <!-- PHASE 2 -->
+        <h2 id="phase2">🔬 Phase 2: Running Experiments</h2>
+        
+        <div class="info-box">
+            <strong>What is Phase 2?</strong> Experiments load the pretrained models and introduce malicious/OOD data. OOD detection (using Hyperdimensional Computing) filters out malicious updates before aggregation.
+        </div>
+        
+        <h3>Overview of Task 4 Experiments</h3>
+        
+        <p>Task 4 includes 6 configurations:</p>
+        <ul>
+            <li><strong>Task4PreTrain:</strong> Pre-training phase (creates base models)</li>
+            <li><strong>Task4Exp1:</strong> OOD detection DISABLED (baseline)</li>
+            <li><strong>Task4Exp2:</strong> OOD detection ENABLED (single OOD client)</li>
+            <li><strong>Task4Exp3:</strong> New OOD client with poisoned data</li>
+            <li><strong>Task4Exp4:</strong> Half-poisoned client</li>
+            <li><strong>Task4Exp5:</strong> Completely different dataset (animal faces)</li>
+        </ul>
+        
+        <h3>Running All Task 4 Experiments</h3>
+        
+        <div class="code-block"><code># In project/main.py, line 609:
+TASK = 4
+
+# Optionally, control test mode (line 324):
+QUICK_TEST = False  # Full experiments (35 pretrain rounds + 5 extra rounds)
+# QUICK_TEST = True  # Quick test (3 pretrain rounds + 2 extra rounds)
+
+# Run:
+python3 main.py</code></div>
+        
+        <div class="warning-box">
+            <strong>⏱️ Runtime:</strong>
+            <ul>
+                <li><strong>QUICK_TEST = True:</strong> ~5-10 minutes</li>
+                <li><strong>QUICK_TEST = False:</strong> ~2-3 hours (full experiments)</li>
+            </ul>
+        </div>
+        
+        <h3>Understanding the Experiments</h3>
+        
+        <div class="experiment-grid">
+            <div class="experiment-card">
+                <span class="experiment-label">Pre-training</span>
+                <h4>Task4PreTrain</h4>
+                <p><strong>Purpose:</strong> Train all models on clean data for 35 rounds (or 3 in quick mode).</p>
+                <p><strong>OOD:</strong> Disabled</p>
+                <p><strong>Output:</strong> Models saved to <span class="inline-code">./.env/.saved/task4_pretrain/</span></p>
+            </div>
+            
+            <div class="experiment-card">
+                <span class="experiment-label">Exp 1</span>
+                <h4>Task4Exp1: OOD Detection DISABLED</h4>
+                <p><strong>Purpose:</strong> Baseline - show how poisoned data degrades model.</p>
+                <p><strong>Setup:</strong> 1 local model with poisoned Alzheimer data</p>
+                <p><strong>Expected:</strong> Accuracy drops (no protection)</p>
+            </div>
+            
+            <div class="experiment-card">
+                <span class="experiment-label">Exp 2</span>
+                <h4>Task4Exp2: OOD Detection ENABLED</h4>
+                <p><strong>Purpose:</strong> Show OOD detection prevents accuracy drop.</p>
+                <p><strong>Setup:</strong> 1 local model with poisoned data, OOD filtering ON</p>
+                <p><strong>Expected:</strong> OOD client filtered, accuracy stays stable</p>
+            </div>
+            
+            <div class="experiment-card">
+                <span class="experiment-label">Exp 3</span>
+                <h4>Task4Exp3: New OOD Client (Poisoned)</h4>
+                <p><strong>Purpose:</strong> Multiple clients + new OOD client.</p>
+                <p><strong>Setup:</strong> 4 clean clients + 1 new poisoned client</p>
+                <p><strong>Expected:</strong> Malicious client detected and excluded</p>
+            </div>
+            
+            <div class="experiment-card">
+                <span class="experiment-label">Exp 4</span>
+                <h4>Task4Exp4: Half-Poisoned Client</h4>
+                <p><strong>Purpose:</strong> Test detection with mixed data.</p>
+                <p><strong>Setup:</strong> 1 client with 50% poisoned + 50% clean data</p>
+                <p><strong>Expected:</strong> Partial poisoning still detected as OOD</p>
+            </div>
+            
+            <div class="experiment-card">
+                <span class="experiment-label">Exp 5</span>
+                <h4>Task4Exp5: Animal Faces (Novel OOD)</h4>
+                <p><strong>Purpose:</strong> Test detection on completely different dataset.</p>
+                <p><strong>Setup:</strong> 1 client with animal face images (entirely different domain)</p>
+                <p><strong>Expected:</strong> Different domain detected as OOD</p>
+            </div>
+        </div>
+        
+        <!-- DETAILED TASKS -->
+        <h2 id="tasks">📋 Detailed Task Guide</h2>
+        
+        <div class="task-section task1">
+            <h3>Task 1: Single Model Training (Baseline)</h3>
+            <p>Train a CNN model on merged datasets WITHOUT federated learning.</p>
+            
+            <div class="code-block"><code>TASK = 1
+python3 main.py</code></div>
+            
+            <p><strong>Purpose:</strong> Verify the model and dataset pipeline work before moving to federated learning.</p>
+            
+            <h4>Configuration:</h4>
+            <ul>
+                <li>Epochs: 5</li>
+                <li>Batch size: 64</li>
+                <li>Image size: 256x256</li>
+                <li>All ID datasets merged together</li>
+                <li>Debug mode: Enabled (shows example images)</li>
+            </ul>
+            
+            <p><strong>Output:</strong> Accuracy, loss, and confusion matrix plots.</p>
+        </div>
+        
+        <div class="task-section task2">
+            <h3>Task 2: Federated Learning Phase 1 (Pre-training)</h3>
+            <p>Implement federated learning with Federated Averaging aggregation.</p>
+            
+            <div class="code-block"><code>TASK = 2
+python3 main.py</code></div>
+            
+            <p><strong>Purpose:</strong> Pre-train global and local models on clean, in-distribution data.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Global model (host_id=0) and 4 local models (clients 1-4)</li>
+                <li>Each round: global model broadcasts → local models train → aggregation</li>
+                <li>Federated Averaging combines local updates</li>
+                <li>OOD detection is DISABLED</li>
+                <li>Models saved for later Phase 2 use</li>
+            </ul>
+            
+            <h4>Configuration:</h4>
+            <table class="config-table">
+                <tr>
+                    <td>rounds</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>clients</td>
+                    <td>5 (1 global + 4 local)</td>
+                </tr>
+                <tr>
+                    <td>participants</td>
+                    <td>4 (all local models participate)</td>
+                </tr>
+                <tr>
+                    <td>save</td>
+                    <td>True</td>
+                </tr>
+                <tr>
+                    <td>OOD enabled</td>
+                    <td>False</td>
+                </tr>
+            </table>
+            
+            <p><strong>Output:</strong> Trained models, accuracy/loss history, plots.</p>
+        </div>
+        
+        <div class="task-section task3">
+            <h3>Task 3: Federated Learning Phase 2 (With OOD Detection)</h3>
+            <p>Load pre-trained models and enable OOD detection with a malicious client.</p>
+            
+            <div class="code-block"><code>TASK = 3
+python3 main.py</code></div>
+            
+            <p><strong>Purpose:</strong> Demonstrate OOD detection can filter out poisoned updates.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Loads models from Task 2</li>
+                <li>Adds 1 new malicious local model (client 5) with poisoned data</li>
+                <li>Enables Hyperdimensional Computing (HDC) based OOD detection</li>
+                <li>OOD detection uses cosine similarity to compare with global model</li>
+                <li>Malicious updates filtered before aggregation</li>
+            </ul>
+            
+            <h4>Configuration:</h4>
+            <table class="config-table">
+                <tr>
+                    <td>rounds</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>clients</td>
+                    <td>6 (1 global + 4 clean + 1 malicious)</td>
+                </tr>
+                <tr>
+                    <td>participants</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>load</td>
+                    <td>True (from Task 2)</td>
+                </tr>
+                <tr>
+                    <td>OOD enabled</td>
+                    <td>True</td>
+                </tr>
+                <tr>
+                    <td>OOD round</td>
+                    <td>2 (when malicious client joins)</td>
+                </tr>
+                <tr>
+                    <td>OOD threshold</td>
+                    <td>0.5 (cosine similarity cutoff)</td>
+                </tr>
+            </table>
+            
+            <p><strong>Output:</strong> OOD similarity scores, filtered updates, results.</p>
+        </div>
+        
+        <div class="task-section task4">
+            <h3>Task 4: Experimentation (5 Scenarios)</h3>
+            <p>Comprehensive evaluation of OOD detection robustness across multiple scenarios.</p>
+            
+            <div class="code-block"><code>TASK = 4
+python3 main.py</code></div>
+            
+            <p><strong>Includes:</strong> Pre-training + 5 different experiments with varying OOD scenarios.</p>
+            
+            <h4>Experiment Sequence:</h4>
+            
+            <h4>Step 1️⃣: Task4PreTrain (Phase 1)</h4>
+            <ul>
+                <li>Pre-trains for 35 rounds (or 3 in QUICK_TEST)</li>
+                <li>4 clean local models + global model</li>
+                <li>OOD detection disabled</li>
+                <li>Saves models to <span class="inline-code">./.env/.saved/task4_pretrain/</span></li>
+            </ul>
+            
+            <h4>Step 2️⃣: Task4Exp1 - OOD Detection DISABLED (Baseline)</h4>
+            <ul>
+                <li>Loads pretrained models</li>
+                <li>Adds 1 malicious client with <strong>complete poisoned data</strong></li>
+                <li>OOD detection is <strong>OFF</strong></li>
+                <li><strong>Expected:</strong> Global accuracy drops significantly</li>
+            </ul>
+            
+            <h4>Step 3️⃣: Task4Exp2 - OOD Detection ENABLED (Single OOD)</h4>
+            <ul>
+                <li>Loads pretrained models</li>
+                <li>Adds 1 malicious client with <strong>complete poisoned data</strong></li>
+                <li>OOD detection is <strong>ON</strong> with threshold 0.5</li>
+                <li><strong>Expected:</strong> Malicious client detected and filtered, accuracy stable</li>
+            </ul>
+            
+            <h4>Step 4️⃣: Task4Exp3 - New OOD Client (Poisoned)</h4>
+            <ul>
+                <li>4 clean local models + 1 new malicious client</li>
+                <li>Malicious client trained on <strong>full poisoned Alzheimer dataset</strong></li>
+                <li>OOD detection ON</li>
+                <li><strong>Expected:</strong> New OOD client detected and excluded</li>
+            </ul>
+            
+            <h4>Step 5️⃣: Task4Exp4 - Half-Poisoned Client</h4>
+            <ul>
+                <li>4 clean local models + 1 client with <strong>50% poisoned + 50% clean data</strong></li>
+                <li>Mixed data from poisoned Alzheimer + clean Pneumonia</li>
+                <li>OOD detection ON</li>
+                <li><strong>Expected:</strong> Partial poisoning still detected as anomalous</li>
+            </ul>
+            
+            <h4>Step 6️⃣: Task4Exp5 - Novel OOD Dataset (Animal Faces)</h4>
+            <ul>
+                <li>4 clean local models + 1 client with <strong>completely different dataset</strong></li>
+                <li>Animal faces from Afaces16000 dataset (entirely different domain)</li>
+                <li>OOD detection ON</li>
+                <li><strong>Expected:</strong> Different domain easily detected as OOD</li>
+            </ul>
+            
+            <h4>Results Output:</h4>
+            <ul>
+                <li>Task 4 summary: <span class="inline-code">./.env/plot/task4_summary.txt</span></li>
+                <li>Per-experiment results: <span class="inline-code">./.env/plot/task4_exp[1-5]/results.txt</span></li>
+                <li>Confusion matrices for each experiment</li>
+                <li>Final accuracy and loss values</li>
+            </ul>
+        </div>
+        
+        <!-- CONFIGURATION -->
+        <h2 id="configuration">⚙️ Configuration Reference</h2>
+        
+        <h3>Main Execution Parameters</h3>
+        
+        <div class="parameter-list">
+            <div class="parameter-item">
+                <strong>QUICK_TEST</strong> (line 324)<br/>
+                <code>QUICK_TEST = False</code> for full experiments<br/>
+                <code>QUICK_TEST = True</code> for fast testing (fewer rounds)
+            </div>
+            
+            <div class="parameter-item">
+                <strong>PRETRAIN_ROUNDS</strong> (line 327)<br/>
+                Full: 35 rounds | Quick: 3 rounds
+            </div>
+            
+            <div class="parameter-item">
+                <strong>EXP_EXTRA_ROUNDS</strong> (line 328)<br/>
+                Full: 5 rounds | Quick: 2 rounds<br/>
+                Extra rounds per experiment after pre-training
+            </div>
+            
+            <div class="parameter-item">
+                <strong>PRETRAIN_PATH</strong> (line 326)<br/>
+                Where pre-trained models are saved/loaded
+            </div>
+        </div>
+        
+        <h3>Federated Configuration Example (Task 4 PreTrain)</h3>
+        
+        <div class="code-block"><code>federated_config = ConfigFederated(
+    debug=True,           # Enable debug output
+    save=True,            # Save models
+    load=False,           # Don't load pre-trained
+    rounds=35,            # 35 training rounds
+    clients=5,            # 1 global + 4 local
+    participants=4,       # 4 local models participate
+    host_id=0,            # Global model ID
+    ood_round=36,         # OOD never activates (>rounds)
+    delete_on_load=False
+)</code></div>
+        
+        <h3>OOD Configuration Example (Exp2)</h3>
+        
+        <div class="code-block"><code>ood_config = ConfigOod(
+    debug=True,
+    enabled=True,                  # OOD detection ON
+    hyper_size=int(1e4),           # 10,000 dimensions
+    id_client=[1,2,3,4],           # Clean clients
+    ood_client=[1],                # Client 1 is malicious
+    ood_protection=True,           # Enable filtering
+    ood_protection_thres=0.5       # Similarity threshold
+)</code></div>
+        
+        <h3>Key Configuration Parameters</h3>
+        
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="inline-code">rounds</span></td>
+                <td>int</td>
+                <td>Number of federated training rounds</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">clients</span></td>
+                <td>int</td>
+                <td>Total clients (1 global + N local)</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">participants</span></td>
+                <td>int</td>
+                <td>Local models per round (excludes global)</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">epochs</span></td>
+                <td>int</td>
+                <td>Training epochs per round (use 1 for federated)</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">save</span></td>
+                <td>bool</td>
+                <td>Save trained models to disk</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">load</span></td>
+                <td>bool</td>
+                <td>Load pre-trained models before starting</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">load_round</span></td>
+                <td>int</td>
+                <td>Which round to load from (e.g., 35 for Task 4)</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">enabled (OOD)</span></td>
+                <td>bool</td>
+                <td>Enable OOD detection mechanism</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">ood_round</span></td>
+                <td>int</td>
+                <td>Round to activate OOD detection</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">ood_protection_thres</span></td>
+                <td>float</td>
+                <td>Cosine similarity threshold (0-1)</td>
+            </tr>
+            <tr>
+                <td><span class="inline-code">hyper_size</span></td>
+                <td>int</td>
+                <td>Hyperdimensional projection size (usually 1e4)</td>
+            </tr>
+        </table>
+        
+        <!-- TROUBLESHOOTING -->
+        <h2 id="troubleshooting">🔧 Troubleshooting</h2>
+        
+        <h3>❌ Problem: Models not saving/loading</h3>
+        <div class="warning-box">
+            <strong>Solution:</strong>
+            <ul>
+                <li>Ensure <span class="inline-code">./.env/.saved/</span> directory exists</li>
+                <li>Check disk space available</li>
+                <li>Verify <span class="inline-code">save=True</span> in federated_config</li>
+                <li>For loading, ensure <span class="inline-code">load_round</span> matches saved round number</li>
+            </ul>
+        </div>
+        
+        <h3>❌ Problem: Plots not generating</h3>
+        <div class="warning-box">
+            <strong>Solution:</strong>
+            <ul>
+                <li>Check that matplotlib backend is 'Agg' (for non-interactive)</li>
+                <li>Verify <span class="inline-code">./.env/plot/</span> directory exists</li>
+                <li>Ensure <span class="inline-code">plot=True</span> in plot_config</li>
+            </ul>
+        </div>
+        
+        <h3>❌ Problem: CUDA/GPU errors</h3>
+        <div class="warning-box">
+            <strong>Solution:</strong>
+            <ul>
+                <li>The code will automatically fall back to CPU</li>
+                <li>For Metal (Apple Silicon), the code has built-in configuration</li>
+                <li>Check TensorFlow is properly installed: <span class="inline-code">python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices())"</span></li>
+            </ul>
+        </div>
+        
+        <h3>❌ Problem: Out of memory</h3>
+        <div class="warning-box">
+            <strong>Solution:</strong>
+            <ul>
+                <li>Reduce batch_size in dataset_config (currently 64)</li>
+                <li>Reduce number of rounds</li>
+                <li>Use QUICK_TEST mode for initial testing</li>
+            </ul>
+        </div>
+        
+        <h3>❌ Problem: Dataset download fails</h3>
+        <div class="warning-box">
+            <strong>Solution:</strong>
+            <ul>
+                <li>Check internet connection</li>
+                <li>Ensure Kaggle API is configured (for Kaggle datasets)</li>
+                <li>Try running individual dataset downloads first</li>
+            </ul>
+        </div>
+        
+        <h3>✅ How to verify everything works:</h3>
+        <div class="success-box">
+            <ol>
+                <li>Run Task 1 (single model): <span class="inline-code">TASK = 1; python3 main.py</span></li>
+                <li>Run Task 2 (pre-training): <span class="inline-code">TASK = 2; python3 main.py</span></li>
+                <li>Run Task 3 (OOD detection): <span class="inline-code">TASK = 3; python3 main.py</span></li>
+                <li>Run Task 4 with QUICK_TEST: <span class="inline-code">QUICK_TEST = True; TASK = 4; python3 main.py</span></li>
+                <li>Finally run full Task 4: <span class="inline-code">QUICK_TEST = False; TASK = 4; python3 main.py</span></li>
+            </ol>
+        </div>
+        
+        <!-- OUTPUT FILES -->
+        <h2>📁 Output Files and Results</h2>
+        
+        <h3>Directory Structure</h3>
+        <div class="code-block"><code>.env/
+├── .saved/
+│   ├── task4_pretrain/          # Task 4 pre-trained models
+│   │   ├── round_0/
+│   │   ├── round_1/
+│   │   └── ...
+│   └── (other task models)
+└── plot/
+    ├── task4_pretrain/          # Pre-training results
+    ├── task4_exp1_ood_disabled/  # Exp 1 results
+    ├── task4_exp2_ood_enabled/   # Exp 2 results
+    ├── task4_exp3_new_ood_poisoned/
+    ├── task4_exp4_half_poisoned/
+    ├── task4_exp5_animal_faces/
+    └── task4_summary.txt         # Overall summary</code></div>
+        
+        <h3>Results File Content (results.txt)</h3>
+        <p>Each experiment produces a results file with:</p>
+        <ul>
+            <li>Accuracy and loss history per round</li>
+            <li>Confusion matrix</li>
+            <li>Per-class accuracy</li>
+            <li>Overall accuracy percentage</li>
+            <li>OOD detection statistics (if enabled)</li>
+        </ul>
+        
+        <h3>Summary File (task4_summary.txt)</h3>
+        <p>Contains a table comparing all experiments:</p>
+        <ul>
+            <li>Experiment name</li>
+            <li>Final accuracy</li>
+            <li>Final loss</li>
+            <li>OOD status (ON/OFF)</li>
+        </ul>
+        
+        <!-- TIPS AND BEST PRACTICES -->
+        <h2>💡 Tips and Best Practices</h2>
+        
+        <div class="info-box">
+            <h3>For Development/Testing:</h3>
+            <ul>
+                <li><strong>Use QUICK_TEST = True</strong> while developing</li>
+                <li><strong>Start with Task 1</strong> to verify setup</li>
+                <li><strong>Check .env/plot/ after each run</strong> to verify results are generated</li>
+                <li><strong>Monitor console output</strong> for errors and OOD detection stats</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h3>For Production Runs:</h3>
+            <ul>
+                <li><strong>Set QUICK_TEST = False</strong> for full experiments</li>
+                <li><strong>Run in background</strong> if possible: <span class="inline-code">nohup python3 main.py > output.log 2>&1 &</span></li>
+                <li><strong>Monitor disk space</strong> (models can be large)</li>
+                <li><strong>Save results</strong> before deleting .env directory</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h3>For Experimentation:</h3>
+            <ul>
+                <li><strong>Modify ood_protection_thres</strong> (0.5 default) to test sensitivity</li>
+                <li><strong>Change hyper_size</strong> to test HDC dimensionality effects</li>
+                <li><strong>Adjust rounds and participants</strong> to test convergence</li>
+                <li><strong>Create custom datasets</strong> for new OOD scenarios</li>
+            </ul>
+        </div>
+        
+        <!-- EXPECTED RESULTS -->
+        <h2>📈 Expected Results</h2>
+        
+        <table>
+            <tr>
+                <th>Experiment</th>
+                <th>OOD Detection</th>
+                <th>Expected Outcome</th>
+            </tr>
+            <tr>
+                <td>Task4Exp1</td>
+                <td>❌ OFF</td>
+                <td>Accuracy drops (no protection against poison)</td>
+            </tr>
+            <tr>
+                <td>Task4Exp2</td>
+                <td>✅ ON</td>
+                <td>Accuracy stable (malicious client filtered)</td>
+            </tr>
+            <tr>
+                <td>Task4Exp3</td>
+                <td>✅ ON</td>
+                <td>New OOD client detected and excluded</td>
+            </tr>
+            <tr>
+                <td>Task4Exp4</td>
+                <td>✅ ON</td>
+                <td>Half-poisoned client detected as anomalous</td>
+            </tr>
+            <tr>
+                <td>Task4Exp5</td>
+                <td>✅ ON</td>
+                <td>Novel dataset (animal faces) easily detected as OOD</td>
+            </tr>
+        </table>
+        
+        <div class="footer">
+            <p><strong>Lab 3: Out-of-Distribution Detection in Federated Learning</strong></p>
+            <p>Generated guide for understanding how to create pretrained models and run experiments using main.py</p>
+            <p>For more details, refer to the lab instructions PDF and the provided code comments.</p>
+        </div>
+    </div>
+</body>
+</html>

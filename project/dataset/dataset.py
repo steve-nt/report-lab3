@@ -5,26 +5,45 @@ from dataset.download.b_tumor4600 import Btumor4600
 from dataset.generator import DatasetGenerator
 
 class Dataset:
+    """
+    Dataset manager for Lab 3: Federated Learning.
+    
+    Handles loading, merging, and splitting image datasets for the FL simulation.
+    Supports assigning different datasets to different clients (data heterogeneity).
+    
+    Available datasets:
+    - Btumor4600(): Brain tumor dataset (4600 images, ID)
+    - Btumor3000(): Brain tumor dataset variant (3000 images, ID)
+    - Balzheimer5100(): Alzheimer's brain scans (5100 images, ID)
+    - Lpneumonia5200(): Pneumonia chest X-rays (5200 images, ID)
+    - Balzheimer5100_poisoned(): Poisoned Alzheimer's (label flipped, OOD)
+    - Afaces16000(): Animal faces (16000 images, OOD)
+    
+    Related to section 2.1.2 (Datasets) and Figure 6 (Dataset Generator Flowchart)
+    """
     datasets = []
     dataset_config = None
     plot_config = None
     
     def __init__(self, datasets : list, dataset_config : ConfigDataset, plot_config : ConfigPlot) -> None:
         """
-        Packages all downloaded datasets.
+        Initialize dataset container with list of available datasets.
         
         Parameters
         ----------
-            datasets : list[(str(ID),dataset, [int,int])]
-                List containing tuple of id (str), dataset and range of samples.
+            datasets : list[(str(ID), dataset_obj, [int,int] ranges)]
+                List of tuples: (ID, DatasetClass instance, optional sample ranges)
+                Example: [(Btumor4600().ID, Btumor4600(), [])]
             dataset_config : ConfigDataset 
-                Dataset config, target size of reformatting of images in datasets.
+                Configuration for image resizing, batch size, split ratio
             plot_config : ConfigPlot 
-                Plotting config, plotting some img / labels for respective / merged dataset.
+                Configuration for visualizing dataset samples
         """
         self.datasets = datasets
         self.dataset_config = dataset_config
         self.plot_config = plot_config
+        # Collect all known class labels across all datasets for consistent encoding
+        self.all_labels = sorted(set(label for _, ds, _ in datasets for label in ds.labels))
     
     def split_indicies(self, result_paths, result_labels, indicies):
         if(0 <= indicies[0] < indicies[1]):
@@ -34,17 +53,15 @@ class Dataset:
     
     def mergeAll(self):
         """
-        Returns tensorflow iterator to directory of all datasets (merged). 
+        Merge all datasets into a single training, validation, and test split.
         
-        Raises
-        ----------
-        Exception
-            No datasets loaded.
-
+        Used when the global model needs to train on all available ID data.
+        Returns TensorFlow data generators for train/validation/test splits.
+        
         Returns
-        ----------
-        _type_ 
-            train, validation, test. Iterator (tensorflow) to directory.
+        -------
+        tuple: (train_data, validation_data, test_data)
+            TensorFlow ImageDataGenerators for training pipeline
         """
         
         if len(self.datasets) == 0:
@@ -68,21 +85,23 @@ class Dataset:
                 
         dataset = DatasetGenerator()
         
-        return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, None)
+        return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, None, known_classes=self.all_labels)
         
     def get(self, *args):
         """
-        Returns tensorflow iterator to directory of dataset index i. 
+        Get TensorFlow data generators for specific dataset(s).
         
-        Raises
+        Supports fetching a single dataset by index or merging multiple datasets.
+        Used to assign datasets to specific clients in federated learning.
+        
+        Parameters
         ----------
-        Exception
-            No datasets loaded.
-
+            *args: Either a single int (dataset index) or list of ints (multiple indices)
+        
         Returns
-        ----------
-        _type_ 
-            train, validation, test. Iterator (tensorflow) to directory.
+        -------
+        tuple: (train_data, validation_data, test_data)
+            TensorFlow ImageDataGenerators for the requested dataset(s)
         """
         result_paths = []
         result_labels = []
@@ -98,7 +117,7 @@ class Dataset:
                 
                 dataset = DatasetGenerator()
                 
-                return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, lambda image: self.datasets[i][1].pre_processing(image))
+                return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, lambda image: self.datasets[i][1].pre_processing(image), known_classes=self.all_labels)
             else:
                 raise Exception("Index out of range.")
         
@@ -112,12 +131,10 @@ class Dataset:
                     raise Exception("Index out of range.")
                 
             dataset = DatasetGenerator()
-            return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, lambda image: self.datasets[i][1].pre_processing(image))
+            return dataset.generate(result_paths, result_labels, result_indicies, self.dataset_config, self.plot_config, lambda image: self.datasets[i][1].pre_processing(image), known_classes=self.all_labels)
         
     def print(self):
-        """
-            Prints all loaded datasets in generator.
-        """
+        """Prints all loaded datasets in generator."""
         for x in (self.datasets):
             print(x)
   

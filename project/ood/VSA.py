@@ -1,12 +1,17 @@
 import tensorflow as tf
 
 class Vsa:
-    """ VSA/HDC mathematics form the backbone of the ood detection approach.
+    """
+    Vector Symbolic Architecture (VSA) / Hyperdimensional Computing (HDC) operations.
+    
+    Implements mathematical operations for hyperdimensional computing used in HDFF.
+    Provides bundling (superposition), binding, similarity, and distance operations.
+    
     References:
-        - https://arxiv.org/abs/2112.05341
-        - https://github.com/SamWilso/HDFF_Official
-        
-        However code is re-written to fit tensorflow and this project structure.
+    - https://arxiv.org/abs/2112.05341 (HDFF paper)
+    - https://github.com/SamWilso/HDFF_Official
+    
+    Code adapted from original to work with TensorFlow for Lab 3.
     """
     debug = False
     
@@ -14,6 +19,7 @@ class Vsa:
         self.debug = debug
     
     def _dim_check(self, x, y):
+        """Ensure both tensors are at least 2D for batch operations."""
         if len(tf.shape(x)) < 2:
             x = tf.expand_dims(x, axis=0)
         if len(tf.shape(y)) < 2:
@@ -21,20 +27,32 @@ class Vsa:
         return x, y
 
     def bundle(self, x, y) -> tf.Tensor:
+        """
+        Bundle (superpose) two hypervectors by element-wise addition.
+        Used in feature_bundle to combine layer features.
+        """
         x, y = self._dim_check(x, y)
         return x + y
 	
     def bulk_bundle(self, x) -> tf.Tensor:
+        """Bundle multiple vectors at once."""
         return tf.reduce_sum(x, axis=0)
     
     def bind(self, x, y) -> tf.Tensor:
+        """Bind (element-wise multiplication) two hypervectors."""
         x, y = self._dim_check(x, y)
         return x * y
 
     def norm(self, tensor):
-        return tf.nn.l2_normalize(tensor, axis=1)  # Normalize along feature axis
+        """Normalize vector along feature axis (L2 normalization)."""
+        return tf.nn.l2_normalize(tensor, axis=1)
 
     def similarity(self, x, y):
+        """
+        Compute cosine similarity between two sets of hypervectors.
+        Used in OOD detection to compare model signatures.
+        Returns normalized dot product (cosine similarity).
+        """
         # Both should be (n_samples, hyper_dim)
         x, y = self._dim_check(x, y)
         x, y = self.norm(x), self.norm(y)

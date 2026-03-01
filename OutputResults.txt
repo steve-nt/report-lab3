@@ -1,0 +1,2084 @@
+2026-03-01 11:50:39.939050: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1772365839.961135    2123 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1772365839.967757    2123 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1772365839.984957    2123 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1772365839.984979    2123 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1772365839.984983    2123 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1772365839.984986    2123 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-03-01 11:50:39.989670: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+[Metal] GPU acceleration enabled: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+
+============================================================
+  Running: task4_pretrain
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+I0000 00:00:1772365847.696267    2123 gpu_device.cc:2019] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 13757 MB memory:  -> device: 0, name: Tesla T4, pci bus id: 0000:00:04.0, compute capability: 7.5
+Model: "sequential"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_3 (Conv2D)               │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_3 (MaxPooling2D)  │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 2932 validated image filenames belonging to 2 classes.
+Found 518 validated image filenames belonging to 2 classes.
+Found 1150 validated image filenames belonging to 2 classes.
+Found 1912 validated image filenames belonging to 2 classes.
+Found 338 validated image filenames belonging to 2 classes.
+Found 750 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+Found 3325 validated image filenames belonging to 2 classes.
+Found 587 validated image filenames belonging to 2 classes.
+Found 1304 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=5, participants/round=4
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[0]
+  - LOCAL model id=2 -> dataset_indices=[1]
+  - LOCAL model id=3 -> dataset_indices=[2]
+  - LOCAL model id=4 -> dataset_indices=[3]
+
+[Round 1] selected_clients=[1, 4, 2, 3]
+[Round 1] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1772365909.913328    2180 service.cc:152] XLA service 0x7e411c00d230 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1772365909.913365    2180 service.cc:160]   StreamExecutor device (0): Tesla T4, Compute Capability 7.5
+2026-03-01 11:51:49.996037: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+I0000 00:00:1772365910.373701    2180 cuda_dnn.cc:529] Loaded cuDNN version 91002
+2026-03-01 11:51:51.266923: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[64,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,1,256,256]{3,2,1,0} %bitcast.2797, f32[16,1,3,3]{3,2,1,0} %bitcast.2804, f32[16]{0} %bitcast.3420), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:51:51.677403: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[64,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,16,127,127]{3,2,1,0} %bitcast.3488, f32[32,16,3,3]{3,2,1,0} %bitcast.2825, f32[32]{0} %bitcast.3548), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:51:51.963483: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[64,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,32,62,62]{3,2,1,0} %bitcast.3612, f32[32,32,3,3]{3,2,1,0} %bitcast.2844, f32[32]{0} %bitcast.3672), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:51:52.076090: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[64,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,32,30,30]{3,2,1,0} %bitcast.3735, f32[16,32,3,3]{3,2,1,0} %bitcast.2863, f32[16]{0} %bitcast.3795), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:51:53.572761: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:51:53.869525: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+I0000 00:00:1772365917.270946    2180 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+29/46 ━━━━━━━━━━━━━━━━━━━━ 7s 453ms/step - accuracy: 0.5664 - loss: 0.73172026-03-01 11:52:10.931518: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[52,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,1,256,256]{3,2,1,0} %bitcast.2797, f32[16,1,3,3]{3,2,1,0} %bitcast.2804, f32[16]{0} %bitcast.3420), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:11.093734: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[52,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,16,127,127]{3,2,1,0} %bitcast.3488, f32[32,16,3,3]{3,2,1,0} %bitcast.2825, f32[32]{0} %bitcast.3548), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:11.319762: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[52,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,32,62,62]{3,2,1,0} %bitcast.3612, f32[32,32,3,3]{3,2,1,0} %bitcast.2844, f32[32]{0} %bitcast.3672), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:11.429401: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[52,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,32,30,30]{3,2,1,0} %bitcast.3735, f32[16,32,3,3]{3,2,1,0} %bitcast.2863, f32[16]{0} %bitcast.3795), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:13.120273: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:52:13.414282: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:52:13.488560: E external/local_xla/xla/service/slow_operation_alarm.cc:73] Trying algorithm eng4{k11=1} for conv %cudnn-conv-bw-input.5 = (f32[52,16,127,127]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,32,125,125]{3,2,1,0} %bitcast.3552, f32[32,16,3,3]{3,2,1,0} %bitcast.2825), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/sequential_1/conv2d_1_2/convolution/Conv2DBackpropInput" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-03-01 11:52:13.702162: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:52:13.710084: E external/local_xla/xla/service/slow_operation_alarm.cc:140] The operation took 1.221612067s
+Trying algorithm eng4{k11=1} for conv %cudnn-conv-bw-input.5 = (f32[52,16,127,127]{3,2,1,0}, u8[0]{0}) custom-call(f32[52,32,125,125]{3,2,1,0} %bitcast.3552, f32[32,16,3,3]{3,2,1,0} %bitcast.2825), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardInput", metadata={op_type="Conv2DBackpropInput" op_name="gradient_tape/sequential_1/conv2d_1_2/convolution/Conv2DBackpropInput" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+46/46 ━━━━━━━━━━━━━━━━━━━━ 0s 589ms/step - accuracy: 0.5787 - loss: 0.70722026-03-01 11:52:25.559359: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[64,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:25.819627: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[64,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:26.072360: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[64,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:26.181771: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[64,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[64,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:29.679341: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[6,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[6,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:29.728993: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[6,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[6,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:29.842686: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[6,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[6,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:29.889405: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[6,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[6,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+46/46 ━━━━━━━━━━━━━━━━━━━━ 42s 732ms/step - accuracy: 0.5797 - loss: 0.7058 - val_accuracy: 0.7355 - val_loss: 0.5286
+[Round 1] Local train done: client=1
+25/52 ━━━━━━━━━━━━━━━━━━━━ 20s 752ms/step - accuracy: 0.7427 - loss: 0.58872026-03-01 11:52:54.544104: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[61,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[61,1,256,256]{3,2,1,0} %bitcast.2801, f32[16,1,3,3]{3,2,1,0} %bitcast.2808, f32[16]{0} %bitcast.3426), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:54.877482: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[61,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[61,16,127,127]{3,2,1,0} %bitcast.3494, f32[32,16,3,3]{3,2,1,0} %bitcast.2829, f32[32]{0} %bitcast.3554), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:55.130321: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[61,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[61,32,62,62]{3,2,1,0} %bitcast.3618, f32[32,32,3,3]{3,2,1,0} %bitcast.2848, f32[32]{0} %bitcast.3678), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:55.237870: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[61,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[61,32,30,30]{3,2,1,0} %bitcast.3741, f32[16,32,3,3]{3,2,1,0} %bitcast.2867, f32[16]{0} %bitcast.3801), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:52:56.885519: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:52:57.181380: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+52/52 ━━━━━━━━━━━━━━━━━━━━ 0s 847ms/step - accuracy: 0.7807 - loss: 0.49212026-03-01 11:53:27.036162: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[11,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[11,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:27.102808: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[11,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[11,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:27.251572: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[11,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[11,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:27.304406: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[11,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[11,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+52/52 ━━━━━━━━━━━━━━━━━━━━ 56s 1s/step - accuracy: 0.7820 - loss: 0.4893 - val_accuracy: 0.9370 - val_loss: 0.1466
+[Round 1] Local train done: client=4
+ 9/30 ━━━━━━━━━━━━━━━━━━━━ 6s 320ms/step - accuracy: 0.5663 - loss: 0.70042026-03-01 11:53:34.811239: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[56,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[56,1,256,256]{3,2,1,0} %bitcast.2797, f32[16,1,3,3]{3,2,1,0} %bitcast.2804, f32[16]{0} %bitcast.3420), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:35.068275: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[56,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[56,16,127,127]{3,2,1,0} %bitcast.3488, f32[32,16,3,3]{3,2,1,0} %bitcast.2825, f32[32]{0} %bitcast.3548), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:35.300946: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[56,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[56,32,62,62]{3,2,1,0} %bitcast.3612, f32[32,32,3,3]{3,2,1,0} %bitcast.2844, f32[32]{0} %bitcast.3672), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:35.402383: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[56,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[56,32,30,30]{3,2,1,0} %bitcast.3735, f32[16,32,3,3]{3,2,1,0} %bitcast.2863, f32[16]{0} %bitcast.3795), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:37.046138: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 11:53:37.392317: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+30/30 ━━━━━━━━━━━━━━━━━━━━ 0s 554ms/step - accuracy: 0.6613 - loss: 0.62092026-03-01 11:53:50.978079: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[18,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[18,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:51.078593: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[18,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[18,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:51.237682: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[18,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[18,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:53:51.292544: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[18,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[18,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+30/30 ━━━━━━━━━━━━━━━━━━━━ 23s 695ms/step - accuracy: 0.6631 - loss: 0.6191 - val_accuracy: 0.7811 - val_loss: 0.4694
+[Round 1] Local train done: client=2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 26s 454ms/step - accuracy: 0.5316 - loss: 0.7007 - val_accuracy: 0.5920 - val_loss: 0.7214
+[Round 1] Local train done: client=3
+[Round 1] Aggregation: updated global model with FedAvg over 4 clients
+70/71 ━━━━━━━━━━━━━━━━━━━━ 0s 305ms/step - accuracy: 0.6483 - loss: 0.64592026-03-01 11:54:41.188516: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[5,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[5,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:54:41.234971: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[5,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[5,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_1_2/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:54:41.348572: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[5,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[5,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_2_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 11:54:41.399691: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[5,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[5,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_1/conv2d_3_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+71/71 ━━━━━━━━━━━━━━━━━━━━ 23s 311ms/step - accuracy: 0.6485 - loss: 0.6458
+Test loss=  0.6445429921150208
+Test accuracy= 0.6559643149375916
+
+[Round 1] Global test: acc=0.6560, loss=0.6445
+
+[Round 2] selected_clients=[1, 4, 3, 2]
+[Round 2] Regression: distributed global weights to locals
+Epoch 2/2
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 192ms/step - accuracy: 0.7186 - loss: 0.5558 - val_accuracy: 0.8127 - val_loss: 0.4180
+[Round 2] Local train done: client=1
+Epoch 2/2
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 539ms/step - accuracy: 0.8409 - loss: 0.3824 - val_accuracy: 0.9455 - val_loss: 0.1321
+[Round 2] Local train done: client=4
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 115ms/step - accuracy: 0.6125 - loss: 0.6511 - val_accuracy: 0.7569 - val_loss: 0.5375
+[Round 2] Local train done: client=3
+Epoch 2/2
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 191ms/step - accuracy: 0.7628 - loss: 0.5175 - val_accuracy: 0.8462 - val_loss: 0.3558
+[Round 2] Local train done: client=2
+[Round 2] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 209ms/step - accuracy: 0.6651 - loss: 0.6078
+Test loss=  0.6059699058532715
+Test accuracy= 0.6695652008056641
+
+[Round 2] Global test: acc=0.6696, loss=0.6060
+
+[Round 3] selected_clients=[1, 2, 4, 3]
+[Round 3] Regression: distributed global weights to locals
+Epoch 3/3
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 193ms/step - accuracy: 0.8048 - loss: 0.4330 - val_accuracy: 0.8456 - val_loss: 0.3524
+[Round 3] Local train done: client=1
+Epoch 3/3
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 185ms/step - accuracy: 0.8177 - loss: 0.4096 - val_accuracy: 0.8905 - val_loss: 0.2763
+[Round 3] Local train done: client=2
+Epoch 3/3
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 551ms/step - accuracy: 0.8864 - loss: 0.2755 - val_accuracy: 0.9455 - val_loss: 0.1376
+[Round 3] Local train done: client=4
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 121ms/step - accuracy: 0.6327 - loss: 0.6556 - val_accuracy: 0.7604 - val_loss: 0.5190
+[Round 3] Local train done: client=3
+[Round 3] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 217ms/step - accuracy: 0.6542 - loss: 0.6621
+Test loss=  0.6545411944389343
+Test accuracy= 0.6586399078369141
+
+[Round 3] Global test: acc=0.6586, loss=0.6545
+
+[Round 4] selected_clients=[1, 2, 4, 3]
+[Round 4] Regression: distributed global weights to locals
+Epoch 4/4
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 196ms/step - accuracy: 0.8065 - loss: 0.4181 - val_accuracy: 0.8514 - val_loss: 0.3363
+[Round 4] Local train done: client=1
+Epoch 4/4
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 181ms/step - accuracy: 0.8213 - loss: 0.3860 - val_accuracy: 0.8964 - val_loss: 0.2624
+[Round 4] Local train done: client=2
+Epoch 4/4
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 568ms/step - accuracy: 0.8947 - loss: 0.2434 - val_accuracy: 0.9455 - val_loss: 0.1454
+[Round 4] Local train done: client=4
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 113ms/step - accuracy: 0.5911 - loss: 0.7008 - val_accuracy: 0.7778 - val_loss: 0.5078
+[Round 4] Local train done: client=3
+[Round 4] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 216ms/step - accuracy: 0.7443 - loss: 0.6089
+Test loss=  0.6065894365310669
+Test accuracy= 0.7460423707962036
+
+[Round 4] Global test: acc=0.7460, loss=0.6066
+
+[Round 5] selected_clients=[2, 4, 1, 3]
+[Round 5] Regression: distributed global weights to locals
+Epoch 5/5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 207ms/step - accuracy: 0.8501 - loss: 0.3378 - val_accuracy: 0.8876 - val_loss: 0.2666
+[Round 5] Local train done: client=2
+Epoch 5/5
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 538ms/step - accuracy: 0.9169 - loss: 0.2244 - val_accuracy: 0.9472 - val_loss: 0.1328
+[Round 5] Local train done: client=4
+Epoch 5/5
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 192ms/step - accuracy: 0.8347 - loss: 0.3778 - val_accuracy: 0.8958 - val_loss: 0.2530
+[Round 5] Local train done: client=1
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 112ms/step - accuracy: 0.6436 - loss: 0.6367 - val_accuracy: 0.7552 - val_loss: 0.5235
+[Round 5] Local train done: client=3
+[Round 5] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 229ms/step - accuracy: 0.7164 - loss: 0.5676
+Test loss=  0.5588279366493225
+Test accuracy= 0.7226309776306152
+
+[Round 5] Global test: acc=0.7226, loss=0.5588
+
+[Round 6] selected_clients=[3, 4, 1, 2]
+[Round 6] Regression: distributed global weights to locals
+Epoch 6/6
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.6902 - loss: 0.5826 - val_accuracy: 0.6181 - val_loss: 0.6328
+[Round 6] Local train done: client=3
+Epoch 6/6
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 553ms/step - accuracy: 0.9372 - loss: 0.1691 - val_accuracy: 0.9523 - val_loss: 0.1111
+[Round 6] Local train done: client=4
+Epoch 6/6
+46/46 ━━━━━━━━━━━━━━━━━━━━ 8s 178ms/step - accuracy: 0.8501 - loss: 0.3398 - val_accuracy: 0.9112 - val_loss: 0.2369
+[Round 6] Local train done: client=1
+Epoch 6/6
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 199ms/step - accuracy: 0.8688 - loss: 0.3268 - val_accuracy: 0.9024 - val_loss: 0.2301
+[Round 6] Local train done: client=2
+[Round 6] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.7886 - loss: 0.4663
+Test loss=  0.4626728296279907
+Test accuracy= 0.7881828546524048
+
+[Round 6] Global test: acc=0.7882, loss=0.4627
+
+[Round 7] selected_clients=[1, 3, 4, 2]
+[Round 7] Regression: distributed global weights to locals
+Epoch 7/7
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 197ms/step - accuracy: 0.8766 - loss: 0.2996 - val_accuracy: 0.9247 - val_loss: 0.2146
+[Round 7] Local train done: client=1
+Epoch 7/7
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 117ms/step - accuracy: 0.6896 - loss: 0.5883 - val_accuracy: 0.7917 - val_loss: 0.4657
+[Round 7] Local train done: client=3
+Epoch 7/7
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 559ms/step - accuracy: 0.9417 - loss: 0.1558 - val_accuracy: 0.9557 - val_loss: 0.1081
+[Round 7] Local train done: client=4
+Epoch 7/7
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 178ms/step - accuracy: 0.8912 - loss: 0.2475 - val_accuracy: 0.9379 - val_loss: 0.1665
+[Round 7] Local train done: client=2
+[Round 7] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.8111 - loss: 0.4192
+Test loss=  0.4116778075695038
+Test accuracy= 0.8127090334892273
+
+[Round 7] Global test: acc=0.8127, loss=0.4117
+
+[Round 8] selected_clients=[1, 4, 3, 2]
+[Round 8] Regression: distributed global weights to locals
+Epoch 8/8
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 194ms/step - accuracy: 0.8935 - loss: 0.2753 - val_accuracy: 0.9324 - val_loss: 0.1967
+[Round 8] Local train done: client=1
+Epoch 8/8
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 544ms/step - accuracy: 0.9594 - loss: 0.1328 - val_accuracy: 0.9557 - val_loss: 0.1229
+[Round 8] Local train done: client=4
+Epoch 8/8
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 129ms/step - accuracy: 0.7064 - loss: 0.5746 - val_accuracy: 0.7917 - val_loss: 0.4654
+[Round 8] Local train done: client=3
+Epoch 8/8
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 188ms/step - accuracy: 0.9282 - loss: 0.1956 - val_accuracy: 0.9645 - val_loss: 0.1241
+[Round 8] Local train done: client=2
+[Round 8] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.8261 - loss: 0.3824
+Test loss=  0.37816980481147766
+Test accuracy= 0.827201783657074
+
+[Round 8] Global test: acc=0.8272, loss=0.3782
+
+[Round 9] selected_clients=[2, 1, 4, 3]
+[Round 9] Regression: distributed global weights to locals
+Epoch 9/9
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 182ms/step - accuracy: 0.9419 - loss: 0.1581 - val_accuracy: 0.9497 - val_loss: 0.1578
+[Round 9] Local train done: client=2
+Epoch 9/9
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 196ms/step - accuracy: 0.9175 - loss: 0.2010 - val_accuracy: 0.9305 - val_loss: 0.1710
+[Round 9] Local train done: client=1
+Epoch 9/9
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 543ms/step - accuracy: 0.9577 - loss: 0.1190 - val_accuracy: 0.9540 - val_loss: 0.1192
+[Round 9] Local train done: client=4
+Epoch 9/9
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 126ms/step - accuracy: 0.7303 - loss: 0.5364 - val_accuracy: 0.8021 - val_loss: 0.4375
+[Round 9] Local train done: client=3
+[Round 9] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 212ms/step - accuracy: 0.8572 - loss: 0.3123
+Test loss=  0.30823591351509094
+Test accuracy= 0.8606466054916382
+
+[Round 9] Global test: acc=0.8606, loss=0.3082
+
+[Round 10] selected_clients=[1, 4, 2, 3]
+[Round 10] Regression: distributed global weights to locals
+Epoch 10/10
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 194ms/step - accuracy: 0.9210 - loss: 0.2083 - val_accuracy: 0.9459 - val_loss: 0.1582
+[Round 10] Local train done: client=1
+Epoch 10/10
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 540ms/step - accuracy: 0.9611 - loss: 0.1145 - val_accuracy: 0.9557 - val_loss: 0.1140
+[Round 10] Local train done: client=4
+Epoch 10/10
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 192ms/step - accuracy: 0.9449 - loss: 0.1510 - val_accuracy: 0.9379 - val_loss: 0.1812
+[Round 10] Local train done: client=2
+Epoch 10/10
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 114ms/step - accuracy: 0.7823 - loss: 0.4856 - val_accuracy: 0.7917 - val_loss: 0.4411
+[Round 10] Local train done: client=3
+[Round 10] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.8709 - loss: 0.2868
+Test loss=  0.28800928592681885
+Test accuracy= 0.8731326460838318
+
+[Round 10] Global test: acc=0.8731, loss=0.2880
+
+[Round 11] selected_clients=[1, 2, 3, 4]
+[Round 11] Regression: distributed global weights to locals
+Epoch 11/11
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 201ms/step - accuracy: 0.9322 - loss: 0.1737 - val_accuracy: 0.9459 - val_loss: 0.1598
+[Round 11] Local train done: client=1
+Epoch 11/11
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 198ms/step - accuracy: 0.9412 - loss: 0.1527 - val_accuracy: 0.9527 - val_loss: 0.1628
+[Round 11] Local train done: client=2
+Epoch 11/11
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 115ms/step - accuracy: 0.7434 - loss: 0.4960 - val_accuracy: 0.8125 - val_loss: 0.4111
+[Round 11] Local train done: client=3
+Epoch 11/11
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 556ms/step - accuracy: 0.9698 - loss: 0.0864 - val_accuracy: 0.9608 - val_loss: 0.1085
+[Round 11] Local train done: client=4
+[Round 11] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 216ms/step - accuracy: 0.8764 - loss: 0.2741
+Test loss=  0.27030012011528015
+Test accuracy= 0.881382405757904
+
+[Round 11] Global test: acc=0.8814, loss=0.2703
+
+[Round 12] selected_clients=[3, 2, 4, 1]
+[Round 12] Regression: distributed global weights to locals
+Epoch 12/12
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 127ms/step - accuracy: 0.8045 - loss: 0.4172 - val_accuracy: 0.7795 - val_loss: 0.4508
+[Round 12] Local train done: client=3
+Epoch 12/12
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 190ms/step - accuracy: 0.9682 - loss: 0.0935 - val_accuracy: 0.9704 - val_loss: 0.0784
+[Round 12] Local train done: client=2
+Epoch 12/12
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 553ms/step - accuracy: 0.9665 - loss: 0.0908 - val_accuracy: 0.9353 - val_loss: 0.1732
+[Round 12] Local train done: client=4
+Epoch 12/12
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 187ms/step - accuracy: 0.9545 - loss: 0.1285 - val_accuracy: 0.9421 - val_loss: 0.2029
+[Round 12] Local train done: client=1
+[Round 12] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 216ms/step - accuracy: 0.8951 - loss: 0.2415
+Test loss=  0.24091216921806335
+Test accuracy= 0.8985507488250732
+
+[Round 12] Global test: acc=0.8986, loss=0.2409
+
+[Round 13] selected_clients=[3, 4, 2, 1]
+[Round 13] Regression: distributed global weights to locals
+Epoch 13/13
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 118ms/step - accuracy: 0.8040 - loss: 0.4231 - val_accuracy: 0.8229 - val_loss: 0.3757
+[Round 13] Local train done: client=3
+Epoch 13/13
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 545ms/step - accuracy: 0.9758 - loss: 0.0742 - val_accuracy: 0.9523 - val_loss: 0.1259
+[Round 13] Local train done: client=4
+Epoch 13/13
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 199ms/step - accuracy: 0.9538 - loss: 0.1186 - val_accuracy: 0.9645 - val_loss: 0.1013
+[Round 13] Local train done: client=2
+Epoch 13/13
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 189ms/step - accuracy: 0.9620 - loss: 0.1154 - val_accuracy: 0.9653 - val_loss: 0.1283
+[Round 13] Local train done: client=1
+[Round 13] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 212ms/step - accuracy: 0.9048 - loss: 0.2248
+Test loss=  0.22676599025726318
+Test accuracy= 0.9047937393188477
+
+[Round 13] Global test: acc=0.9048, loss=0.2268
+
+[Round 14] selected_clients=[4, 2, 3, 1]
+[Round 14] Regression: distributed global weights to locals
+Epoch 14/14
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 541ms/step - accuracy: 0.9701 - loss: 0.0802 - val_accuracy: 0.9557 - val_loss: 0.1258
+[Round 14] Local train done: client=4
+Epoch 14/14
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 197ms/step - accuracy: 0.9818 - loss: 0.0593 - val_accuracy: 0.9734 - val_loss: 0.0813
+[Round 14] Local train done: client=2
+Epoch 14/14
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.8146 - loss: 0.4003 - val_accuracy: 0.8559 - val_loss: 0.3397
+[Round 14] Local train done: client=3
+Epoch 14/14
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 191ms/step - accuracy: 0.9719 - loss: 0.0770 - val_accuracy: 0.9363 - val_loss: 0.1939
+[Round 14] Local train done: client=1
+[Round 14] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.9104 - loss: 0.2152
+Test loss=  0.22377242147922516
+Test accuracy= 0.9052397012710571
+
+[Round 14] Global test: acc=0.9052, loss=0.2238
+
+[Round 15] selected_clients=[1, 2, 4, 3]
+[Round 15] Regression: distributed global weights to locals
+Epoch 15/15
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 194ms/step - accuracy: 0.9576 - loss: 0.1113 - val_accuracy: 0.9498 - val_loss: 0.1826
+[Round 15] Local train done: client=1
+Epoch 15/15
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 179ms/step - accuracy: 0.9779 - loss: 0.0735 - val_accuracy: 0.9763 - val_loss: 0.0598
+[Round 15] Local train done: client=2
+Epoch 15/15
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 550ms/step - accuracy: 0.9655 - loss: 0.0851 - val_accuracy: 0.9523 - val_loss: 0.1173
+[Round 15] Local train done: client=4
+Epoch 15/15
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 115ms/step - accuracy: 0.8432 - loss: 0.3581 - val_accuracy: 0.8090 - val_loss: 0.4048
+[Round 15] Local train done: client=3
+[Round 15] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 219ms/step - accuracy: 0.9212 - loss: 0.1974
+Test loss=  0.20389248430728912
+Test accuracy= 0.9163879752159119
+
+[Round 15] Global test: acc=0.9164, loss=0.2039
+
+[Round 16] selected_clients=[3, 2, 4, 1]
+[Round 16] Regression: distributed global weights to locals
+Epoch 16/16
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 123ms/step - accuracy: 0.8518 - loss: 0.3364 - val_accuracy: 0.7951 - val_loss: 0.4516
+[Round 16] Local train done: client=3
+Epoch 16/16
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 195ms/step - accuracy: 0.9807 - loss: 0.0569 - val_accuracy: 0.9793 - val_loss: 0.0612
+[Round 16] Local train done: client=2
+Epoch 16/16
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 537ms/step - accuracy: 0.9742 - loss: 0.0745 - val_accuracy: 0.9523 - val_loss: 0.1299
+[Round 16] Local train done: client=4
+Epoch 16/16
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 0.9825 - loss: 0.0676 - val_accuracy: 0.9556 - val_loss: 0.1358
+[Round 16] Local train done: client=1
+[Round 16] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 212ms/step - accuracy: 0.9242 - loss: 0.1743
+Test loss=  0.1816263496875763
+Test accuracy= 0.9215161800384521
+
+[Round 16] Global test: acc=0.9215, loss=0.1816
+
+[Round 17] selected_clients=[1, 4, 2, 3]
+[Round 17] Regression: distributed global weights to locals
+Epoch 17/17
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 198ms/step - accuracy: 0.9779 - loss: 0.0650 - val_accuracy: 0.9710 - val_loss: 0.1320
+[Round 17] Local train done: client=1
+Epoch 17/17
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 536ms/step - accuracy: 0.9758 - loss: 0.0590 - val_accuracy: 0.9591 - val_loss: 0.1168
+[Round 17] Local train done: client=4
+Epoch 17/17
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 177ms/step - accuracy: 0.9804 - loss: 0.0486 - val_accuracy: 0.9675 - val_loss: 0.0935
+[Round 17] Local train done: client=2
+Epoch 17/17
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 128ms/step - accuracy: 0.8688 - loss: 0.2978 - val_accuracy: 0.8472 - val_loss: 0.3388
+[Round 17] Local train done: client=3
+[Round 17] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.9283 - loss: 0.1672
+Test loss=  0.17587368190288544
+Test accuracy= 0.9246376752853394
+
+[Round 17] Global test: acc=0.9246, loss=0.1759
+
+[Round 18] selected_clients=[4, 2, 3, 1]
+[Round 18] Regression: distributed global weights to locals
+Epoch 18/18
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 540ms/step - accuracy: 0.9847 - loss: 0.0445 - val_accuracy: 0.9591 - val_loss: 0.1402
+[Round 18] Local train done: client=4
+Epoch 18/18
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 188ms/step - accuracy: 0.9749 - loss: 0.0670 - val_accuracy: 0.9911 - val_loss: 0.0325
+[Round 18] Local train done: client=2
+Epoch 18/18
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 117ms/step - accuracy: 0.8926 - loss: 0.2449 - val_accuracy: 0.8854 - val_loss: 0.2703
+[Round 18] Local train done: client=3
+Epoch 18/18
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 197ms/step - accuracy: 0.9728 - loss: 0.0737 - val_accuracy: 0.9672 - val_loss: 0.1014
+[Round 18] Local train done: client=1
+[Round 18] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 209ms/step - accuracy: 0.9404 - loss: 0.1539
+Test loss=  0.15714327991008759
+Test accuracy= 0.9404682517051697
+
+[Round 18] Global test: acc=0.9405, loss=0.1571
+
+[Round 19] selected_clients=[1, 3, 4, 2]
+[Round 19] Regression: distributed global weights to locals
+Epoch 19/19
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 190ms/step - accuracy: 0.9751 - loss: 0.0583 - val_accuracy: 0.9653 - val_loss: 0.1397
+[Round 19] Local train done: client=1
+Epoch 19/19
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 119ms/step - accuracy: 0.9029 - loss: 0.2367 - val_accuracy: 0.8767 - val_loss: 0.2898
+[Round 19] Local train done: client=3
+Epoch 19/19
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 533ms/step - accuracy: 0.9823 - loss: 0.0428 - val_accuracy: 0.9540 - val_loss: 0.1568
+[Round 19] Local train done: client=4
+Epoch 19/19
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 195ms/step - accuracy: 0.9976 - loss: 0.0169 - val_accuracy: 0.9911 - val_loss: 0.0238
+[Round 19] Local train done: client=2
+[Round 19] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.9376 - loss: 0.1494
+Test loss=  0.15684707462787628
+Test accuracy= 0.9377926588058472
+
+[Round 19] Global test: acc=0.9378, loss=0.1568
+
+[Round 20] selected_clients=[2, 4, 3, 1]
+[Round 20] Regression: distributed global weights to locals
+Epoch 20/20
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 202ms/step - accuracy: 0.9912 - loss: 0.0190 - val_accuracy: 0.9941 - val_loss: 0.0164
+[Round 20] Local train done: client=2
+Epoch 20/20
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 530ms/step - accuracy: 0.9865 - loss: 0.0367 - val_accuracy: 0.9574 - val_loss: 0.1192
+[Round 20] Local train done: client=4
+Epoch 20/20
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 114ms/step - accuracy: 0.9264 - loss: 0.1856 - val_accuracy: 0.8976 - val_loss: 0.2314
+[Round 20] Local train done: client=3
+Epoch 20/20
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 192ms/step - accuracy: 0.9833 - loss: 0.0485 - val_accuracy: 0.9633 - val_loss: 0.1245
+[Round 20] Local train done: client=1
+[Round 20] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 211ms/step - accuracy: 0.9413 - loss: 0.1531
+Test loss=  0.15989750623703003
+Test accuracy= 0.9377926588058472
+
+[Round 20] Global test: acc=0.9378, loss=0.1599
+
+[Round 21] selected_clients=[3, 1, 4, 2]
+[Round 21] Regression: distributed global weights to locals
+Epoch 21/21
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 123ms/step - accuracy: 0.9131 - loss: 0.2046 - val_accuracy: 0.9080 - val_loss: 0.2408
+[Round 21] Local train done: client=3
+Epoch 21/21
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 192ms/step - accuracy: 0.9911 - loss: 0.0287 - val_accuracy: 0.9614 - val_loss: 0.1612
+[Round 21] Local train done: client=1
+Epoch 21/21
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 544ms/step - accuracy: 0.9807 - loss: 0.0583 - val_accuracy: 0.9642 - val_loss: 0.1333
+[Round 21] Local train done: client=4
+Epoch 21/21
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 183ms/step - accuracy: 0.9982 - loss: 0.0160 - val_accuracy: 0.9822 - val_loss: 0.0276
+[Round 21] Local train done: client=2
+[Round 21] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 219ms/step - accuracy: 0.9346 - loss: 0.1725
+Test loss=  0.1822269856929779
+Test accuracy= 0.9311037063598633
+
+[Round 21] Global test: acc=0.9311, loss=0.1822
+
+[Round 22] selected_clients=[2, 3, 4, 1]
+[Round 22] Regression: distributed global weights to locals
+Epoch 22/22
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 173ms/step - accuracy: 0.9992 - loss: 0.0099 - val_accuracy: 0.9882 - val_loss: 0.0243
+[Round 22] Local train done: client=2
+Epoch 22/22
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 122ms/step - accuracy: 0.9103 - loss: 0.1866 - val_accuracy: 0.8976 - val_loss: 0.2439
+[Round 22] Local train done: client=3
+Epoch 22/22
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 534ms/step - accuracy: 0.9740 - loss: 0.0716 - val_accuracy: 0.9455 - val_loss: 0.1938
+[Round 22] Local train done: client=4
+Epoch 22/22
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 194ms/step - accuracy: 0.9973 - loss: 0.0140 - val_accuracy: 0.9653 - val_loss: 0.1520
+[Round 22] Local train done: client=1
+[Round 22] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 212ms/step - accuracy: 0.9277 - loss: 0.1817
+Test loss=  0.195224329829216
+Test accuracy= 0.9241917729377747
+
+[Round 22] Global test: acc=0.9242, loss=0.1952
+
+[Round 23] selected_clients=[1, 4, 2, 3]
+[Round 23] Regression: distributed global weights to locals
+Epoch 23/23
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 191ms/step - accuracy: 0.9933 - loss: 0.0233 - val_accuracy: 0.9653 - val_loss: 0.1430
+[Round 23] Local train done: client=1
+Epoch 23/23
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 536ms/step - accuracy: 0.9724 - loss: 0.0823 - val_accuracy: 0.9659 - val_loss: 0.1328
+[Round 23] Local train done: client=4
+Epoch 23/23
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 176ms/step - accuracy: 1.0000 - loss: 0.0071 - val_accuracy: 0.9911 - val_loss: 0.0167
+[Round 23] Local train done: client=2
+Epoch 23/23
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 126ms/step - accuracy: 0.9182 - loss: 0.1972 - val_accuracy: 0.8594 - val_loss: 0.3477
+[Round 23] Local train done: client=3
+[Round 23] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 208ms/step - accuracy: 0.9188 - loss: 0.1912
+Test loss=  0.20278123021125793
+Test accuracy= 0.9183946251869202
+
+[Round 23] Global test: acc=0.9184, loss=0.2028
+
+[Round 24] selected_clients=[4, 1, 2, 3]
+[Round 24] Regression: distributed global weights to locals
+Epoch 24/24
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 534ms/step - accuracy: 0.9814 - loss: 0.0554 - val_accuracy: 0.9455 - val_loss: 0.1990
+[Round 24] Local train done: client=4
+Epoch 24/24
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 187ms/step - accuracy: 0.9904 - loss: 0.0311 - val_accuracy: 0.9691 - val_loss: 0.1317
+[Round 24] Local train done: client=1
+Epoch 24/24
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 194ms/step - accuracy: 0.9876 - loss: 0.0334 - val_accuracy: 0.9793 - val_loss: 0.0531
+[Round 24] Local train done: client=2
+Epoch 24/24
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.9005 - loss: 0.2274 - val_accuracy: 0.8993 - val_loss: 0.2325
+[Round 24] Local train done: client=3
+[Round 24] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 210ms/step - accuracy: 0.9139 - loss: 0.2251
+Test loss=  0.23288089036941528
+Test accuracy= 0.9092530608177185
+
+[Round 24] Global test: acc=0.9093, loss=0.2329
+
+[Round 25] selected_clients=[1, 4, 2, 3]
+[Round 25] Regression: distributed global weights to locals
+Epoch 25/25
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 191ms/step - accuracy: 0.9939 - loss: 0.0189 - val_accuracy: 0.9653 - val_loss: 0.1222
+[Round 25] Local train done: client=1
+Epoch 25/25
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 540ms/step - accuracy: 0.9913 - loss: 0.0272 - val_accuracy: 0.9625 - val_loss: 0.1322
+[Round 25] Local train done: client=4
+Epoch 25/25
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 188ms/step - accuracy: 0.9979 - loss: 0.0081 - val_accuracy: 0.9911 - val_loss: 0.0333
+[Round 25] Local train done: client=2
+Epoch 25/25
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 121ms/step - accuracy: 0.9064 - loss: 0.2217 - val_accuracy: 0.8906 - val_loss: 0.2671
+[Round 25] Local train done: client=3
+[Round 25] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 218ms/step - accuracy: 0.9542 - loss: 0.1238
+Test loss=  0.13394084572792053
+Test accuracy= 0.953177273273468
+
+[Round 25] Global test: acc=0.9532, loss=0.1339
+
+[Round 26] selected_clients=[2, 1, 3, 4]
+[Round 26] Regression: distributed global weights to locals
+Epoch 26/26
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 179ms/step - accuracy: 0.9978 - loss: 0.0050 - val_accuracy: 0.9911 - val_loss: 0.0163
+[Round 26] Local train done: client=2
+Epoch 26/26
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 0.9984 - loss: 0.0069 - val_accuracy: 0.9691 - val_loss: 0.1174
+[Round 26] Local train done: client=1
+Epoch 26/26
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.9526 - loss: 0.1280 - val_accuracy: 0.9010 - val_loss: 0.2528
+[Round 26] Local train done: client=3
+Epoch 26/26
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 545ms/step - accuracy: 0.9880 - loss: 0.0336 - val_accuracy: 0.9608 - val_loss: 0.1540
+[Round 26] Local train done: client=4
+[Round 26] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 236ms/step - accuracy: 0.9614 - loss: 0.1162
+Test loss=  0.12405674904584885
+Test accuracy= 0.9596432447433472
+
+[Round 26] Global test: acc=0.9596, loss=0.1241
+
+[Round 27] selected_clients=[2, 4, 1, 3]
+[Round 27] Regression: distributed global weights to locals
+Epoch 27/27
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 193ms/step - accuracy: 0.9954 - loss: 0.0152 - val_accuracy: 0.9822 - val_loss: 0.0445
+[Round 27] Local train done: client=2
+Epoch 27/27
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 541ms/step - accuracy: 0.9883 - loss: 0.0270 - val_accuracy: 0.9523 - val_loss: 0.1716
+[Round 27] Local train done: client=4
+Epoch 27/27
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 193ms/step - accuracy: 0.9968 - loss: 0.0086 - val_accuracy: 0.9440 - val_loss: 0.1849
+[Round 27] Local train done: client=1
+Epoch 27/27
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 114ms/step - accuracy: 0.9697 - loss: 0.0957 - val_accuracy: 0.9219 - val_loss: 0.2136
+[Round 27] Local train done: client=3
+[Round 27] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 216ms/step - accuracy: 0.9629 - loss: 0.1121
+Test loss=  0.11618664860725403
+Test accuracy= 0.9612039923667908
+
+[Round 27] Global test: acc=0.9612, loss=0.1162
+
+[Round 28] selected_clients=[1, 2, 4, 3]
+[Round 28] Regression: distributed global weights to locals
+Epoch 28/28
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 186ms/step - accuracy: 0.9988 - loss: 0.0052 - val_accuracy: 0.9672 - val_loss: 0.1665
+[Round 28] Local train done: client=1
+Epoch 28/28
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 198ms/step - accuracy: 0.9955 - loss: 0.0129 - val_accuracy: 0.9822 - val_loss: 0.0787
+[Round 28] Local train done: client=2
+Epoch 28/28
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 530ms/step - accuracy: 0.9937 - loss: 0.0176 - val_accuracy: 0.9642 - val_loss: 0.1480
+[Round 28] Local train done: client=4
+Epoch 28/28
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.9521 - loss: 0.1186 - val_accuracy: 0.8819 - val_loss: 0.3483
+[Round 28] Local train done: client=3
+[Round 28] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 213ms/step - accuracy: 0.9520 - loss: 0.1396
+Test loss=  0.14749421179294586
+Test accuracy= 0.9498327970504761
+
+[Round 28] Global test: acc=0.9498, loss=0.1475
+
+[Round 29] selected_clients=[4, 2, 3, 1]
+[Round 29] Regression: distributed global weights to locals
+Epoch 29/29
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 540ms/step - accuracy: 0.9989 - loss: 0.0063 - val_accuracy: 0.9659 - val_loss: 0.1652
+[Round 29] Local train done: client=4
+Epoch 29/29
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 198ms/step - accuracy: 0.9940 - loss: 0.0198 - val_accuracy: 0.9822 - val_loss: 0.0433
+[Round 29] Local train done: client=2
+Epoch 29/29
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 112ms/step - accuracy: 0.9643 - loss: 0.0891 - val_accuracy: 0.9392 - val_loss: 0.2026
+[Round 29] Local train done: client=3
+Epoch 29/29
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 191ms/step - accuracy: 0.9991 - loss: 0.0055 - val_accuracy: 0.9672 - val_loss: 0.1525
+[Round 29] Local train done: client=1
+[Round 29] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 213ms/step - accuracy: 0.9596 - loss: 0.1166
+Test loss=  0.12122999876737595
+Test accuracy= 0.9585283994674683
+
+[Round 29] Global test: acc=0.9585, loss=0.1212
+
+[Round 30] selected_clients=[4, 3, 2, 1]
+[Round 30] Regression: distributed global weights to locals
+Epoch 30/30
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 532ms/step - accuracy: 0.9986 - loss: 0.0060 - val_accuracy: 0.9608 - val_loss: 0.1546
+[Round 30] Local train done: client=4
+Epoch 30/30
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 124ms/step - accuracy: 0.9452 - loss: 0.1285 - val_accuracy: 0.9236 - val_loss: 0.1989
+[Round 30] Local train done: client=3
+Epoch 30/30
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 175ms/step - accuracy: 0.9998 - loss: 0.0017 - val_accuracy: 0.9941 - val_loss: 0.0172
+[Round 30] Local train done: client=2
+Epoch 30/30
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 193ms/step - accuracy: 1.0000 - loss: 0.0017 - val_accuracy: 0.9653 - val_loss: 0.1584
+[Round 30] Local train done: client=1
+[Round 30] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.9665 - loss: 0.1036
+Test loss=  0.10875764489173889
+Test accuracy= 0.9647714495658875
+
+[Round 30] Global test: acc=0.9648, loss=0.1088
+
+[Round 31] selected_clients=[2, 1, 4, 3]
+[Round 31] Regression: distributed global weights to locals
+Epoch 31/31
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 195ms/step - accuracy: 1.0000 - loss: 0.0017 - val_accuracy: 0.9941 - val_loss: 0.0188
+[Round 31] Local train done: client=2
+Epoch 31/31
+46/46 ━━━━━━━━━━━━━━━━━━━━ 8s 182ms/step - accuracy: 0.9996 - loss: 0.0026 - val_accuracy: 0.9614 - val_loss: 0.1844
+[Round 31] Local train done: client=1
+Epoch 31/31
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 537ms/step - accuracy: 0.9991 - loss: 0.0046 - val_accuracy: 0.9642 - val_loss: 0.1870
+[Round 31] Local train done: client=4
+Epoch 31/31
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 114ms/step - accuracy: 0.9706 - loss: 0.0736 - val_accuracy: 0.9444 - val_loss: 0.1546
+[Round 31] Local train done: client=3
+[Round 31] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 217ms/step - accuracy: 0.9765 - loss: 0.0893
+Test loss=  0.09151406586170197
+Test accuracy= 0.9748048782348633
+
+[Round 31] Global test: acc=0.9748, loss=0.0915
+
+[Round 32] selected_clients=[2, 3, 1, 4]
+[Round 32] Regression: distributed global weights to locals
+Epoch 32/32
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 180ms/step - accuracy: 1.0000 - loss: 6.4784e-04 - val_accuracy: 0.9911 - val_loss: 0.0249
+[Round 32] Local train done: client=2
+Epoch 32/32
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 124ms/step - accuracy: 0.9865 - loss: 0.0443 - val_accuracy: 0.9323 - val_loss: 0.1967
+[Round 32] Local train done: client=3
+Epoch 32/32
+46/46 ━━━━━━━━━━━━━━━━━━━━ 8s 183ms/step - accuracy: 0.9953 - loss: 0.0275 - val_accuracy: 0.9614 - val_loss: 0.1298
+[Round 32] Local train done: client=1
+Epoch 32/32
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 546ms/step - accuracy: 1.0000 - loss: 0.0021 - val_accuracy: 0.9710 - val_loss: 0.1691
+[Round 32] Local train done: client=4
+[Round 32] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 211ms/step - accuracy: 0.9728 - loss: 0.0850
+Test loss=  0.08474168181419373
+Test accuracy= 0.9745819568634033
+
+[Round 32] Global test: acc=0.9746, loss=0.0847
+
+[Round 33] selected_clients=[4, 1, 3, 2]
+[Round 33] Regression: distributed global weights to locals
+Epoch 33/33
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 533ms/step - accuracy: 0.9987 - loss: 0.0043 - val_accuracy: 0.9659 - val_loss: 0.1895
+[Round 33] Local train done: client=4
+Epoch 33/33
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 0.9966 - loss: 0.0094 - val_accuracy: 0.9421 - val_loss: 0.2183
+[Round 33] Local train done: client=1
+Epoch 33/33
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 115ms/step - accuracy: 0.9895 - loss: 0.0411 - val_accuracy: 0.9358 - val_loss: 0.2046
+[Round 33] Local train done: client=3
+Epoch 33/33
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 196ms/step - accuracy: 1.0000 - loss: 9.7576e-04 - val_accuracy: 0.9941 - val_loss: 0.0137
+[Round 33] Local train done: client=2
+[Round 33] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.9640 - loss: 0.1107
+Test loss=  0.11233539879322052
+Test accuracy= 0.964102566242218
+
+[Round 33] Global test: acc=0.9641, loss=0.1123
+
+[Round 34] selected_clients=[3, 2, 1, 4]
+[Round 34] Regression: distributed global weights to locals
+Epoch 34/34
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 122ms/step - accuracy: 0.9354 - loss: 0.1557 - val_accuracy: 0.9253 - val_loss: 0.2279
+[Round 34] Local train done: client=3
+Epoch 34/34
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 176ms/step - accuracy: 1.0000 - loss: 2.1716e-04 - val_accuracy: 0.9970 - val_loss: 0.0082
+[Round 34] Local train done: client=2
+Epoch 34/34
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 196ms/step - accuracy: 0.9978 - loss: 0.0094 - val_accuracy: 0.9440 - val_loss: 0.2010
+[Round 34] Local train done: client=1
+Epoch 34/34
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 535ms/step - accuracy: 0.9992 - loss: 0.0033 - val_accuracy: 0.9710 - val_loss: 0.1730
+[Round 34] Local train done: client=4
+[Round 34] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 212ms/step - accuracy: 0.9661 - loss: 0.1041
+Test loss=  0.1101040169596672
+Test accuracy= 0.9634336829185486
+
+[Round 34] Global test: acc=0.9634, loss=0.1101
+
+[Round 35] selected_clients=[3, 2, 4, 1]
+[Round 35] Regression: distributed global weights to locals
+Epoch 35/35
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 125ms/step - accuracy: 0.9637 - loss: 0.0833 - val_accuracy: 0.9392 - val_loss: 0.1825
+[Round 35] Local train done: client=3
+Epoch 35/35
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 182ms/step - accuracy: 1.0000 - loss: 5.4228e-04 - val_accuracy: 0.9970 - val_loss: 0.0074
+[Round 35] Local train done: client=2
+Epoch 35/35
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 551ms/step - accuracy: 1.0000 - loss: 0.0018 - val_accuracy: 0.9727 - val_loss: 0.1589
+[Round 35] Local train done: client=4
+Epoch 35/35
+46/46 ━━━━━━━━━━━━━━━━━━━━ 8s 179ms/step - accuracy: 0.9973 - loss: 0.0108 - val_accuracy: 0.9691 - val_loss: 0.1371
+[Round 35] Local train done: client=1
+[Round 35] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 217ms/step - accuracy: 0.9741 - loss: 0.0835
+Test loss=  0.08714720606803894
+Test accuracy= 0.9739130139350891
+
+[Round 35] Global test: acc=0.9739, loss=0.0871
+
+[Federated] Finished at round=35
+[Federated] Last global acc=0.9739, loss=0.0871
+[SAVE] Saved model 0 -> ./.env/.saved/task4_pretrain//model0_round35.keras
+[SAVE] Saved model 1 -> ./.env/.saved/task4_pretrain//model1_round35.keras
+[SAVE] Saved model 2 -> ./.env/.saved/task4_pretrain//model2_round35.keras
+[SAVE] Saved model 3 -> ./.env/.saved/task4_pretrain//model3_round35.keras
+[SAVE] Saved model 4 -> ./.env/.saved/task4_pretrain//model4_round35.keras
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 212ms/step
+  Plots saved to ./.env/plot/task4_pretrain/
+
+============================================================
+  Running: task4_exp1_ood_disabled
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+Model: "sequential_1"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d_4 (Conv2D)               │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_4 (MaxPooling2D)  │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_5 (Conv2D)               │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_5 (MaxPooling2D)  │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_6 (Conv2D)               │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_6 (MaxPooling2D)  │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_7 (Conv2D)               │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_7 (MaxPooling2D)  │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten_1 (Flatten)             │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_2 (Dense)                 │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_3 (Dense)                 │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=2, participants/round=1
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[4]
+[LOAD] Loaded model 0 from ./.env/.saved/task4_pretrain//model0_round35.keras
+[LOAD] Loaded model 1 from ./.env/.saved/task4_pretrain//model1_round35.keras
+[Round 35] Regression: distributed global weights to locals
+
+[Round 36] selected_clients=[1]
+[Round 36] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+51/51 ━━━━━━━━━━━━━━━━━━━━ 13s 196ms/step - accuracy: 0.4994 - loss: 1.7636 - val_accuracy: 0.6215 - val_loss: 0.6196
+[Round 36] Local train done: client=1
+[Round 36] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 222ms/step - accuracy: 0.5199 - loss: 0.7593
+Test loss=  0.7638543844223022
+Test accuracy= 0.5123745799064636
+
+[Round 36] Global test: acc=0.5124, loss=0.7639
+
+[Round 37] selected_clients=[1]
+[Round 37] Regression: distributed global weights to locals
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 122ms/step - accuracy: 0.6797 - loss: 0.5952 - val_accuracy: 0.6840 - val_loss: 0.5804
+[Round 37] Local train done: client=1
+[Round 37] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 220ms/step - accuracy: 0.4661 - loss: 0.9134
+Test loss=  0.9277499318122864
+Test accuracy= 0.45351171493530273
+
+[Round 37] Global test: acc=0.4535, loss=0.9277
+
+[Round 38] selected_clients=[1]
+[Round 38] Regression: distributed global weights to locals
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 125ms/step - accuracy: 0.7189 - loss: 0.5328 - val_accuracy: 0.7031 - val_loss: 0.5548
+[Round 38] Local train done: client=1
+[Round 38] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 209ms/step - accuracy: 0.4974 - loss: 1.0159
+Test loss=  1.0241994857788086
+Test accuracy= 0.4862876236438751
+
+[Round 38] Global test: acc=0.4863, loss=1.0242
+
+[Round 39] selected_clients=[1]
+[Round 39] Regression: distributed global weights to locals
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.7587 - loss: 0.4931 - val_accuracy: 0.7483 - val_loss: 0.5084
+[Round 39] Local train done: client=1
+[Round 39] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 216ms/step - accuracy: 0.4935 - loss: 1.2429
+Test loss=  1.2547820806503296
+Test accuracy= 0.482051283121109
+
+[Round 39] Global test: acc=0.4821, loss=1.2548
+
+[Round 40] selected_clients=[1]
+[Round 40] Regression: distributed global weights to locals
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.7811 - loss: 0.4474 - val_accuracy: 0.6997 - val_loss: 0.5574
+[Round 40] Local train done: client=1
+[Round 40] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 227ms/step - accuracy: 0.4681 - loss: 1.2258
+Test loss=  1.2302440404891968
+Test accuracy= 0.4706800580024719
+
+[Round 40] Global test: acc=0.4707, loss=1.2302
+
+[Federated] Finished at round=40
+[Federated] Last global acc=0.4707, loss=1.2302
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 213ms/step
+  Plots saved to ./.env/plot/task4_exp1_ood_disabled/
+
+============================================================
+  Running: task4_exp2_ood_enabled
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+Model: "sequential_2"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d_8 (Conv2D)               │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_8 (MaxPooling2D)  │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_9 (Conv2D)               │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_9 (MaxPooling2D)  │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_10 (Conv2D)              │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_10 (MaxPooling2D) │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_11 (Conv2D)              │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_11 (MaxPooling2D) │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten_2 (Flatten)             │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_4 (Dense)                 │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_5 (Dense)                 │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=2, participants/round=1
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[4]
+[LOAD] Loaded model 0 from ./.env/.saved/task4_pretrain//model0_round35.keras
+[LOAD] Loaded model 1 from ./.env/.saved/task4_pretrain//model1_round35.keras
+[Round 35] Regression: distributed global weights to locals
+
+[Round 36] selected_clients=[1]
+[Round 36] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+51/51 ━━━━━━━━━━━━━━━━━━━━ 10s 135ms/step - accuracy: 0.4713 - loss: 1.4002 - val_accuracy: 0.6476 - val_loss: 0.6294
+[Round 36] Local train done: client=1
+[OOD] Round 36: Client 1 EXCLUDED (sim=0.1591 < 0.5)
+[OOD] Round 36: All clients excluded! Keeping all to avoid empty aggregation.
+[Round 36] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 214ms/step - accuracy: 0.5421 - loss: 0.7777
+Test loss=  0.7743614315986633
+Test accuracy= 0.5493868589401245
+
+[Round 36] Global test: acc=0.5494, loss=0.7744
+
+[Round 37] selected_clients=[1]
+[Round 37] Regression: distributed global weights to locals
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 127ms/step - accuracy: 0.7116 - loss: 0.5684 - val_accuracy: 0.6684 - val_loss: 0.5907
+[Round 37] Local train done: client=1
+[OOD] Round 37: Client 1 OK (sim=0.9646)
+[Round 37] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.5194 - loss: 0.8663
+Test loss=  0.8721029162406921
+Test accuracy= 0.5146042108535767
+
+[Round 37] Global test: acc=0.5146, loss=0.8721
+
+[Round 38] selected_clients=[1]
+[Round 38] Regression: distributed global weights to locals
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.7442 - loss: 0.5237 - val_accuracy: 0.6979 - val_loss: 0.5512
+[Round 38] Local train done: client=1
+[OOD] Round 38: Client 1 OK (sim=0.9913)
+[Round 38] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 224ms/step - accuracy: 0.5229 - loss: 0.9535
+Test loss=  0.954404890537262
+Test accuracy= 0.5186176300048828
+
+[Round 38] Global test: acc=0.5186, loss=0.9544
+
+[Round 39] selected_clients=[1]
+[Round 39] Regression: distributed global weights to locals
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 118ms/step - accuracy: 0.7917 - loss: 0.4520 - val_accuracy: 0.6927 - val_loss: 0.5804
+[Round 39] Local train done: client=1
+[OOD] Round 39: Client 1 OK (sim=0.9916)
+[Round 39] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 218ms/step - accuracy: 0.5608 - loss: 0.8826
+Test loss=  0.8783457279205322
+Test accuracy= 0.5645484924316406
+
+[Round 39] Global test: acc=0.5645, loss=0.8783
+
+[Round 40] selected_clients=[1]
+[Round 40] Regression: distributed global weights to locals
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.8024 - loss: 0.4321 - val_accuracy: 0.7656 - val_loss: 0.4767
+[Round 40] Local train done: client=1
+[OOD] Round 40: Client 1 OK (sim=0.9840)
+[Round 40] Aggregation: updated global model with FedAvg over 1 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.5325 - loss: 1.1603
+Test loss=  1.1538963317871094
+Test accuracy= 0.5277591943740845
+
+[Round 40] Global test: acc=0.5278, loss=1.1539
+
+[Federated] Finished at round=40
+[Federated] Last global acc=0.5278, loss=1.1539
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 228ms/step
+  Plots saved to ./.env/plot/task4_exp2_ood_enabled/
+
+============================================================
+  Running: task4_exp3_new_ood_poisoned
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+Model: "sequential_3"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d_12 (Conv2D)              │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_12 (MaxPooling2D) │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_13 (Conv2D)              │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_13 (MaxPooling2D) │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_14 (Conv2D)              │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_14 (MaxPooling2D) │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_15 (Conv2D)              │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_15 (MaxPooling2D) │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten_3 (Flatten)             │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_6 (Dense)                 │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_7 (Dense)                 │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 2932 validated image filenames belonging to 2 classes.
+Found 518 validated image filenames belonging to 2 classes.
+Found 1150 validated image filenames belonging to 2 classes.
+Found 1912 validated image filenames belonging to 2 classes.
+Found 338 validated image filenames belonging to 2 classes.
+Found 750 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+Found 3325 validated image filenames belonging to 2 classes.
+Found 587 validated image filenames belonging to 2 classes.
+Found 1304 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=6, participants/round=5
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[0]
+  - LOCAL model id=2 -> dataset_indices=[1]
+  - LOCAL model id=3 -> dataset_indices=[2]
+  - LOCAL model id=4 -> dataset_indices=[3]
+  - LOCAL model id=5 -> dataset_indices=[4]
+[LOAD] Loaded model 0 from ./.env/.saved/task4_pretrain//model0_round35.keras
+[LOAD] Loaded model 1 from ./.env/.saved/task4_pretrain//model1_round35.keras
+[LOAD] Loaded model 2 from ./.env/.saved/task4_pretrain//model2_round35.keras
+[LOAD] Loaded model 3 from ./.env/.saved/task4_pretrain//model3_round35.keras
+[LOAD] Loaded model 4 from ./.env/.saved/task4_pretrain//model4_round35.keras
+[LOAD] Missing file for model 5: ./.env/.saved/task4_pretrain//model5_round35.keras
+[Round 35] Regression: distributed global weights to locals
+
+[Round 36] selected_clients=[1, 2, 3, 5, 4]
+[Round 36] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+46/46 ━━━━━━━━━━━━━━━━━━━━ 14s 242ms/step - accuracy: 1.0000 - loss: 0.0010 - val_accuracy: 0.9710 - val_loss: 0.1441
+[Round 36] Local train done: client=1
+30/30 ━━━━━━━━━━━━━━━━━━━━ 11s 278ms/step - accuracy: 1.0000 - loss: 3.0423e-04 - val_accuracy: 0.9941 - val_loss: 0.0114
+[Round 36] Local train done: client=2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 10s 135ms/step - accuracy: 0.9793 - loss: 0.0522 - val_accuracy: 0.9462 - val_loss: 0.1876
+[Round 36] Local train done: client=3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 9s 130ms/step - accuracy: 0.4521 - loss: 1.6697 - val_accuracy: 0.6615 - val_loss: 0.6241
+[Round 36] Local train done: client=5
+52/52 ━━━━━━━━━━━━━━━━━━━━ 34s 577ms/step - accuracy: 1.0000 - loss: 0.0035 - val_accuracy: 0.9710 - val_loss: 0.1702
+[Round 36] Local train done: client=4
+[OOD] Round 36: Client 1 OK (sim=0.9988)
+[OOD] Round 36: Client 2 OK (sim=1.0000)
+[OOD] Round 36: Client 3 OK (sim=0.9888)
+[OOD] Round 36: Client 5 EXCLUDED (sim=0.1864 < 0.5)
+[OOD] Round 36: Client 4 OK (sim=0.9811)
+[Round 36] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 216ms/step - accuracy: 0.9758 - loss: 0.0849
+Test loss=  0.08641897886991501
+Test accuracy= 0.9759197235107422
+
+[Round 36] Global test: acc=0.9759, loss=0.0864
+
+[Round 37] selected_clients=[3, 5, 2, 1, 4]
+[Round 37] Regression: distributed global weights to locals
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 130ms/step - accuracy: 0.9910 - loss: 0.0367 - val_accuracy: 0.9566 - val_loss: 0.1830
+[Round 37] Local train done: client=3
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 118ms/step - accuracy: 0.4559 - loss: 2.0774 - val_accuracy: 0.5799 - val_loss: 0.6625
+[Round 37] Local train done: client=5
+Epoch 2/2
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 198ms/step - accuracy: 1.0000 - loss: 8.3522e-04 - val_accuracy: 0.9941 - val_loss: 0.0112
+[Round 37] Local train done: client=2
+Epoch 2/2
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 197ms/step - accuracy: 1.0000 - loss: 2.2567e-04 - val_accuracy: 0.9730 - val_loss: 0.1612
+[Round 37] Local train done: client=1
+Epoch 2/2
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 541ms/step - accuracy: 1.0000 - loss: 0.0014 - val_accuracy: 0.9659 - val_loss: 0.1971
+[Round 37] Local train done: client=4
+[OOD] Round 37: Client 3 OK (sim=0.9972)
+[OOD] Round 37: Client 5 EXCLUDED (sim=0.1173 < 0.5)
+[OOD] Round 37: Client 2 OK (sim=1.0000)
+[OOD] Round 37: Client 1 OK (sim=1.0000)
+[OOD] Round 37: Client 4 OK (sim=0.9918)
+[Round 37] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.9807 - loss: 0.0779
+Test loss=  0.07790408283472061
+Test accuracy= 0.9808249473571777
+
+[Round 37] Global test: acc=0.9808, loss=0.0779
+
+[Round 38] selected_clients=[1, 2, 4, 5, 3]
+[Round 38] Regression: distributed global weights to locals
+Epoch 3/3
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 196ms/step - accuracy: 1.0000 - loss: 4.8810e-04 - val_accuracy: 0.9691 - val_loss: 0.1749
+[Round 38] Local train done: client=1
+Epoch 3/3
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 186ms/step - accuracy: 1.0000 - loss: 1.9652e-04 - val_accuracy: 0.9941 - val_loss: 0.0145
+[Round 38] Local train done: client=2
+Epoch 3/3
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 538ms/step - accuracy: 1.0000 - loss: 5.7758e-04 - val_accuracy: 0.9727 - val_loss: 0.1879
+[Round 38] Local train done: client=4
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.4409 - loss: 2.1568 - val_accuracy: 0.6910 - val_loss: 0.6048
+[Round 38] Local train done: client=5
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 129ms/step - accuracy: 0.9923 - loss: 0.0310 - val_accuracy: 0.9583 - val_loss: 0.1678
+[Round 38] Local train done: client=3
+[OOD] Round 38: Client 1 OK (sim=1.0000)
+[OOD] Round 38: Client 2 OK (sim=1.0000)
+[OOD] Round 38: Client 4 OK (sim=0.9986)
+[OOD] Round 38: Client 5 EXCLUDED (sim=0.1083 < 0.5)
+[OOD] Round 38: Client 3 OK (sim=0.9969)
+[Round 38] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.9813 - loss: 0.0819
+Test loss=  0.08115563541650772
+Test accuracy= 0.9808249473571777
+
+[Round 38] Global test: acc=0.9808, loss=0.0812
+
+[Round 39] selected_clients=[1, 5, 2, 3, 4]
+[Round 39] Regression: distributed global weights to locals
+Epoch 4/4
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 1.0000 - loss: 1.5126e-04 - val_accuracy: 0.9710 - val_loss: 0.1785
+[Round 39] Local train done: client=1
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 115ms/step - accuracy: 0.4410 - loss: 2.2891 - val_accuracy: 0.6615 - val_loss: 0.6292
+[Round 39] Local train done: client=5
+Epoch 4/4
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 200ms/step - accuracy: 1.0000 - loss: 1.5014e-04 - val_accuracy: 0.9970 - val_loss: 0.0122
+[Round 39] Local train done: client=2
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 120ms/step - accuracy: 0.9800 - loss: 0.0415 - val_accuracy: 0.9236 - val_loss: 0.2216
+[Round 39] Local train done: client=3
+Epoch 4/4
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 544ms/step - accuracy: 1.0000 - loss: 3.0160e-04 - val_accuracy: 0.9710 - val_loss: 0.1820
+[Round 39] Local train done: client=4
+[OOD] Round 39: Client 1 OK (sim=1.0000)
+[OOD] Round 39: Client 5 EXCLUDED (sim=0.1747 < 0.5)
+[OOD] Round 39: Client 2 OK (sim=1.0000)
+[OOD] Round 39: Client 3 OK (sim=0.9983)
+[OOD] Round 39: Client 4 OK (sim=0.9986)
+[Round 39] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 213ms/step - accuracy: 0.9804 - loss: 0.0861
+Test loss=  0.08451607823371887
+Test accuracy= 0.9801560640335083
+
+[Round 39] Global test: acc=0.9802, loss=0.0845
+
+[Round 40] selected_clients=[3, 4, 2, 1, 5]
+[Round 40] Regression: distributed global weights to locals
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 122ms/step - accuracy: 0.9934 - loss: 0.0239 - val_accuracy: 0.9514 - val_loss: 0.1953
+[Round 40] Local train done: client=3
+Epoch 5/5
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 539ms/step - accuracy: 1.0000 - loss: 2.1956e-04 - val_accuracy: 0.9727 - val_loss: 0.1963
+[Round 40] Local train done: client=4
+Epoch 5/5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 176ms/step - accuracy: 1.0000 - loss: 2.7913e-04 - val_accuracy: 0.9970 - val_loss: 0.0150
+[Round 40] Local train done: client=2
+Epoch 5/5
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 1.0000 - loss: 1.2644e-04 - val_accuracy: 0.9691 - val_loss: 0.1878
+[Round 40] Local train done: client=1
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 124ms/step - accuracy: 0.4483 - loss: 2.3032 - val_accuracy: 0.6215 - val_loss: 0.6359
+[Round 40] Local train done: client=5
+[OOD] Round 40: Client 3 OK (sim=0.9991)
+[OOD] Round 40: Client 4 OK (sim=0.9995)
+[OOD] Round 40: Client 2 OK (sim=1.0000)
+[OOD] Round 40: Client 1 OK (sim=1.0000)
+[OOD] Round 40: Client 5 EXCLUDED (sim=0.0753 < 0.5)
+[Round 40] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 213ms/step - accuracy: 0.9810 - loss: 0.0860
+Test loss=  0.08548662066459656
+Test accuracy= 0.9808249473571777
+
+[Round 40] Global test: acc=0.9808, loss=0.0855
+
+[Federated] Finished at round=40
+[Federated] Last global acc=0.9808, loss=0.0855
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 215ms/step
+  Plots saved to ./.env/plot/task4_exp3_new_ood_poisoned/
+
+============================================================
+  Running: task4_exp4_half_poisoned
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+Model: "sequential_4"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d_16 (Conv2D)              │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_16 (MaxPooling2D) │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_17 (Conv2D)              │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_17 (MaxPooling2D) │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_18 (Conv2D)              │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_18 (MaxPooling2D) │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_19 (Conv2D)              │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_19 (MaxPooling2D) │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten_4 (Flatten)             │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_8 (Dense)                 │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_9 (Dense)                 │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100_poisoned
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 2932 validated image filenames belonging to 2 classes.
+Found 518 validated image filenames belonging to 2 classes.
+Found 1150 validated image filenames belonging to 2 classes.
+Found 1912 validated image filenames belonging to 2 classes.
+Found 338 validated image filenames belonging to 2 classes.
+Found 750 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+Found 3325 validated image filenames belonging to 2 classes.
+Found 587 validated image filenames belonging to 2 classes.
+Found 1304 validated image filenames belonging to 2 classes.
+Found 637 validated image filenames belonging to 2 classes.
+Found 113 validated image filenames belonging to 2 classes.
+Found 250 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=6, participants/round=5
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[0]
+  - LOCAL model id=2 -> dataset_indices=[1]
+  - LOCAL model id=3 -> dataset_indices=[2]
+  - LOCAL model id=4 -> dataset_indices=[3]
+  - LOCAL model id=5 -> dataset_indices=[4, 5]
+[LOAD] Loaded model 0 from ./.env/.saved/task4_pretrain//model0_round35.keras
+[LOAD] Loaded model 1 from ./.env/.saved/task4_pretrain//model1_round35.keras
+[LOAD] Loaded model 2 from ./.env/.saved/task4_pretrain//model2_round35.keras
+[LOAD] Loaded model 3 from ./.env/.saved/task4_pretrain//model3_round35.keras
+[LOAD] Loaded model 4 from ./.env/.saved/task4_pretrain//model4_round35.keras
+[LOAD] Missing file for model 5: ./.env/.saved/task4_pretrain//model5_round35.keras
+[Round 35] Regression: distributed global weights to locals
+
+[Round 36] selected_clients=[4, 3, 1, 5, 2]
+[Round 36] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+52/52 ━━━━━━━━━━━━━━━━━━━━ 33s 574ms/step - accuracy: 0.9976 - loss: 0.0067 - val_accuracy: 0.9489 - val_loss: 0.2436
+[Round 36] Local train done: client=4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 9s 135ms/step - accuracy: 0.9676 - loss: 0.0804 - val_accuracy: 0.9340 - val_loss: 0.2124
+[Round 36] Local train done: client=3
+46/46 ━━━━━━━━━━━━━━━━━━━━ 14s 252ms/step - accuracy: 1.0000 - loss: 8.4403e-04 - val_accuracy: 0.9730 - val_loss: 0.1517
+[Round 36] Local train done: client=1
+10/10 ━━━━━━━━━━━━━━━━━━━━ 0s 277ms/step - accuracy: 0.1519 - loss: 3.39542026-03-01 12:46:01.517527: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[49,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[49,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_4_1/conv2d_16_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:46:01.672546: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[49,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[49,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_4_1/conv2d_17_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:46:01.904177: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[49,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[49,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_4_1/conv2d_18_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:46:02.006975: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[49,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[49,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_4_1/conv2d_19_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+10/10 ━━━━━━━━━━━━━━━━━━━━ 7s 512ms/step - accuracy: 0.1641 - loss: 3.2652 - val_accuracy: 0.4690 - val_loss: 0.7025
+[Round 36] Local train done: client=5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 11s 259ms/step - accuracy: 1.0000 - loss: 2.5367e-04 - val_accuracy: 0.9941 - val_loss: 0.0118
+[Round 36] Local train done: client=2
+[OOD] Round 36: Client 4 OK (sim=0.9850)
+[OOD] Round 36: Client 3 OK (sim=0.9828)
+[OOD] Round 36: Client 1 OK (sim=0.9991)
+[OOD] Round 36: Client 5 EXCLUDED (sim=0.2367 < 0.5)
+[OOD] Round 36: Client 2 OK (sim=1.0000)
+[Round 36] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 223ms/step - accuracy: 0.9749 - loss: 0.0885
+Test loss=  0.08658625185489655
+Test accuracy= 0.9756967425346375
+
+[Round 36] Global test: acc=0.9757, loss=0.0866
+
+[Round 37] selected_clients=[3, 4, 5, 2, 1]
+[Round 37] Regression: distributed global weights to locals
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.9896 - loss: 0.0356 - val_accuracy: 0.9410 - val_loss: 0.2028
+[Round 37] Local train done: client=3
+Epoch 2/2
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 559ms/step - accuracy: 0.9990 - loss: 0.0043 - val_accuracy: 0.9506 - val_loss: 0.1995
+[Round 37] Local train done: client=4
+Epoch 2/2
+10/10 ━━━━━━━━━━━━━━━━━━━━ 1s 137ms/step - accuracy: 0.1561 - loss: 4.0539 - val_accuracy: 0.5841 - val_loss: 0.6756
+[Round 37] Local train done: client=5
+Epoch 2/2
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 180ms/step - accuracy: 1.0000 - loss: 0.0011 - val_accuracy: 0.9970 - val_loss: 0.0102
+[Round 37] Local train done: client=2
+Epoch 2/2
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 195ms/step - accuracy: 0.9928 - loss: 0.0138 - val_accuracy: 0.9537 - val_loss: 0.1665
+[Round 37] Local train done: client=1
+[OOD] Round 37: Client 3 OK (sim=0.9940)
+[OOD] Round 37: Client 4 OK (sim=0.9875)
+[OOD] Round 37: Client 5 EXCLUDED (sim=0.2777 < 0.5)
+[OOD] Round 37: Client 2 OK (sim=1.0000)
+[OOD] Round 37: Client 1 OK (sim=0.9755)
+[Round 37] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 215ms/step - accuracy: 0.9580 - loss: 0.1285
+Test loss=  0.1341809779405594
+Test accuracy= 0.9549610018730164
+
+[Round 37] Global test: acc=0.9550, loss=0.1342
+
+[Round 38] selected_clients=[5, 2, 4, 3, 1]
+[Round 38] Regression: distributed global weights to locals
+Epoch 3/3
+10/10 ━━━━━━━━━━━━━━━━━━━━ 2s 145ms/step - accuracy: 0.1927 - loss: 3.9476 - val_accuracy: 0.6018 - val_loss: 0.6884
+[Round 38] Local train done: client=5
+Epoch 3/3
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 199ms/step - accuracy: 0.9989 - loss: 0.0021 - val_accuracy: 0.9941 - val_loss: 0.0124
+[Round 38] Local train done: client=2
+Epoch 3/3
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 546ms/step - accuracy: 1.0000 - loss: 0.0022 - val_accuracy: 0.9761 - val_loss: 0.1737
+[Round 38] Local train done: client=4
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 126ms/step - accuracy: 0.9420 - loss: 0.1339 - val_accuracy: 0.9306 - val_loss: 0.1891
+[Round 38] Local train done: client=3
+Epoch 3/3
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 187ms/step - accuracy: 1.0000 - loss: 0.0016 - val_accuracy: 0.9710 - val_loss: 0.1743
+[Round 38] Local train done: client=1
+[OOD] Round 38: Client 5 EXCLUDED (sim=0.2653 < 0.5)
+[OOD] Round 38: Client 2 OK (sim=1.0000)
+[OOD] Round 38: Client 4 OK (sim=0.9901)
+[OOD] Round 38: Client 3 OK (sim=0.9889)
+[OOD] Round 38: Client 1 OK (sim=0.9957)
+[Round 38] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 221ms/step - accuracy: 0.9768 - loss: 0.0885
+Test loss=  0.08864045143127441
+Test accuracy= 0.9752508401870728
+
+[Round 38] Global test: acc=0.9753, loss=0.0886
+
+[Round 39] selected_clients=[2, 3, 1, 5, 4]
+[Round 39] Regression: distributed global weights to locals
+Epoch 4/4
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 178ms/step - accuracy: 1.0000 - loss: 7.4310e-04 - val_accuracy: 0.9941 - val_loss: 0.0156
+[Round 39] Local train done: client=2
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 125ms/step - accuracy: 0.9807 - loss: 0.0484 - val_accuracy: 0.9097 - val_loss: 0.2593
+[Round 39] Local train done: client=3
+Epoch 4/4
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 184ms/step - accuracy: 1.0000 - loss: 3.8841e-04 - val_accuracy: 0.9730 - val_loss: 0.1490
+[Round 39] Local train done: client=1
+Epoch 4/4
+10/10 ━━━━━━━━━━━━━━━━━━━━ 2s 163ms/step - accuracy: 0.1397 - loss: 4.0784 - val_accuracy: 0.5929 - val_loss: 0.6821
+[Round 39] Local train done: client=5
+Epoch 4/4
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 539ms/step - accuracy: 1.0000 - loss: 7.6296e-04 - val_accuracy: 0.9761 - val_loss: 0.1612
+[Round 39] Local train done: client=4
+[OOD] Round 39: Client 2 OK (sim=0.9999)
+[OOD] Round 39: Client 3 OK (sim=0.9947)
+[OOD] Round 39: Client 1 OK (sim=0.9999)
+[OOD] Round 39: Client 5 EXCLUDED (sim=0.2944 < 0.5)
+[OOD] Round 39: Client 4 OK (sim=0.9984)
+[Round 39] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 213ms/step - accuracy: 0.9774 - loss: 0.0904
+Test loss=  0.09026908129453659
+Test accuracy= 0.9754738211631775
+
+[Round 39] Global test: acc=0.9755, loss=0.0903
+
+[Round 40] selected_clients=[1, 5, 3, 2, 4]
+[Round 40] Regression: distributed global weights to locals
+Epoch 5/5
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 198ms/step - accuracy: 1.0000 - loss: 3.5377e-04 - val_accuracy: 0.9749 - val_loss: 0.1579
+[Round 40] Local train done: client=1
+Epoch 5/5
+10/10 ━━━━━━━━━━━━━━━━━━━━ 1s 144ms/step - accuracy: 0.1827 - loss: 4.6618 - val_accuracy: 0.6637 - val_loss: 0.6775
+[Round 40] Local train done: client=5
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 124ms/step - accuracy: 0.9856 - loss: 0.0414 - val_accuracy: 0.9410 - val_loss: 0.1717
+[Round 40] Local train done: client=3
+Epoch 5/5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 184ms/step - accuracy: 1.0000 - loss: 2.6881e-04 - val_accuracy: 0.9941 - val_loss: 0.0148
+[Round 40] Local train done: client=2
+Epoch 5/5
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 536ms/step - accuracy: 1.0000 - loss: 7.8495e-04 - val_accuracy: 0.9710 - val_loss: 0.1867
+[Round 40] Local train done: client=4
+[OOD] Round 40: Client 1 OK (sim=1.0000)
+[OOD] Round 40: Client 5 EXCLUDED (sim=0.2723 < 0.5)
+[OOD] Round 40: Client 3 OK (sim=0.9868)
+[OOD] Round 40: Client 2 OK (sim=1.0000)
+[OOD] Round 40: Client 4 OK (sim=0.9919)
+[Round 40] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 227ms/step - accuracy: 0.9780 - loss: 0.0863
+Test loss=  0.08541347831487656
+Test accuracy= 0.9770345687866211
+
+[Round 40] Global test: acc=0.9770, loss=0.0854
+
+[Federated] Finished at round=40
+[Federated] Last global acc=0.9770, loss=0.0854
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 215ms/step
+  Plots saved to ./.env/plot/task4_exp4_half_poisoned/
+
+============================================================
+  Running: task4_exp5_animal_faces
+============================================================
+/usr/local/lib/python3.12/dist-packages/keras/src/layers/core/input_layer.py:27: UserWarning: Argument `input_shape` is deprecated. Use `shape` instead.
+  warnings.warn(
+Model: "sequential_5"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d_20 (Conv2D)              │ (64, 254, 254, 16)     │           160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_20 (MaxPooling2D) │ (64, 127, 127, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_21 (Conv2D)              │ (64, 125, 125, 32)     │         4,640 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_21 (MaxPooling2D) │ (64, 62, 62, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_22 (Conv2D)              │ (64, 60, 60, 32)       │         9,248 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_22 (MaxPooling2D) │ (64, 30, 30, 32)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_23 (Conv2D)              │ (64, 28, 28, 16)       │         4,624 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_23 (MaxPooling2D) │ (64, 14, 14, 16)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten_5 (Flatten)             │ (64, 3136)             │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_10 (Dense)                │ (64, 256)              │       803,072 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_11 (Dense)                │ (64, 2)                │           514 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 822,258 (3.14 MB)
+ Trainable params: 822,258 (3.14 MB)
+ Non-trainable params: 0 (0.00 B)
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor4600
+
+Using Colab cache for faster access to the 'brian-tumor-dataset' dataset.
+Path to dataset files: /kaggle/input/brian-tumor-dataset
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_tumor3000
+
+Using Colab cache for faster access to the 'brain-tumor-detection-mri' dataset.
+Path to dataset files: /kaggle/input/brain-tumor-detection-mri
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.b_alzheimer5100
+
+Using Colab cache for faster access to the 'dataset-alzheimer' dataset.
+Path to dataset files: /kaggle/input/dataset-alzheimer
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.l_pneumonia5200
+
+Using Colab cache for faster access to the 'chest-xray-pneumonia' dataset.
+Path to dataset files: /kaggle/input/chest-xray-pneumonia
+
+Downloading dataset...dataset.download.a_faces16000
+
+Using Colab cache for faster access to the 'animal-faces' dataset.
+Path to dataset files: /kaggle/input/animal-faces
+
+Downloading dataset...dataset.download.a_faces16000
+
+Using Colab cache for faster access to the 'animal-faces' dataset.
+Path to dataset files: /kaggle/input/animal-faces
+
+/usr/local/lib/python3.12/dist-packages/keras/src/saving/saving_lib.py:802: UserWarning: Skipping variable loading for optimizer 'adam', because it has 26 variables whereas the saved optimizer has 2 variables. 
+  saveable.load_own_variables(weights_store.get(inner_path))
+Found 11434 validated image filenames belonging to 2 classes.
+Found 2018 validated image filenames belonging to 2 classes.
+Found 4485 validated image filenames belonging to 2 classes.
+Found 2932 validated image filenames belonging to 2 classes.
+Found 518 validated image filenames belonging to 2 classes.
+Found 1150 validated image filenames belonging to 2 classes.
+Found 1912 validated image filenames belonging to 2 classes.
+Found 338 validated image filenames belonging to 2 classes.
+Found 750 validated image filenames belonging to 2 classes.
+Found 3264 validated image filenames belonging to 2 classes.
+Found 576 validated image filenames belonging to 2 classes.
+Found 1281 validated image filenames belonging to 2 classes.
+Found 3325 validated image filenames belonging to 2 classes.
+Found 587 validated image filenames belonging to 2 classes.
+Found 1304 validated image filenames belonging to 2 classes.
+Found 890 validated image filenames belonging to 2 classes.
+Found 158 validated image filenames belonging to 2 classes.
+Found 350 validated image filenames belonging to 2 classes.
+
+[Federated] Initialized models + datasets
+  host_id=0, clients=6, participants/round=5
+  - GLOBAL model id=0 -> dataset_indices=[0, 1, 2, 3]
+  - LOCAL model id=1 -> dataset_indices=[0]
+  - LOCAL model id=2 -> dataset_indices=[1]
+  - LOCAL model id=3 -> dataset_indices=[2]
+  - LOCAL model id=4 -> dataset_indices=[3]
+  - LOCAL model id=5 -> dataset_indices=[4]
+[LOAD] Loaded model 0 from ./.env/.saved/task4_pretrain//model0_round35.keras
+[LOAD] Loaded model 1 from ./.env/.saved/task4_pretrain//model1_round35.keras
+[LOAD] Loaded model 2 from ./.env/.saved/task4_pretrain//model2_round35.keras
+[LOAD] Loaded model 3 from ./.env/.saved/task4_pretrain//model3_round35.keras
+[LOAD] Loaded model 4 from ./.env/.saved/task4_pretrain//model4_round35.keras
+[LOAD] Missing file for model 5: ./.env/.saved/task4_pretrain//model5_round35.keras
+[Round 35] Regression: distributed global weights to locals
+
+[Round 36] selected_clients=[4, 1, 5, 2, 3]
+[Round 36] Regression: distributed global weights to locals
+/usr/local/lib/python3.12/dist-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+52/52 ━━━━━━━━━━━━━━━━━━━━ 33s 572ms/step - accuracy: 1.0000 - loss: 0.0030 - val_accuracy: 0.9744 - val_loss: 0.1614
+[Round 36] Local train done: client=4
+46/46 ━━━━━━━━━━━━━━━━━━━━ 14s 248ms/step - accuracy: 1.0000 - loss: 9.3110e-04 - val_accuracy: 0.9730 - val_loss: 0.1890
+[Round 36] Local train done: client=1
+13/14 ━━━━━━━━━━━━━━━━━━━━ 0s 425ms/step - accuracy: 0.8559 - loss: 1.15112026-03-01 12:52:36.944151: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[58,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[58,1,256,256]{3,2,1,0} %bitcast.2797, f32[16,1,3,3]{3,2,1,0} %bitcast.2804, f32[16]{0} %bitcast.3420), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_20_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:37.238533: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[58,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[58,16,127,127]{3,2,1,0} %bitcast.3488, f32[32,16,3,3]{3,2,1,0} %bitcast.2825, f32[32]{0} %bitcast.3548), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_21_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:37.509941: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[58,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[58,32,62,62]{3,2,1,0} %bitcast.3612, f32[32,32,3,3]{3,2,1,0} %bitcast.2844, f32[32]{0} %bitcast.3672), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_22_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:37.624339: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[58,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[58,32,30,30]{3,2,1,0} %bitcast.3735, f32[16,32,3,3]{3,2,1,0} %bitcast.2863, f32[16]{0} %bitcast.3795), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_23_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:39.407412: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+2026-03-01 12:52:39.704800: E external/local_xla/xla/stream_executor/cuda/cuda_timer.cc:86] Delay kernel timed out: measured time has sub-optimal accuracy. There may be a missing warmup execution, please investigate in Nsight Systems.
+14/14 ━━━━━━━━━━━━━━━━━━━━ 0s 930ms/step - accuracy: 0.8629 - loss: 1.09422026-03-01 12:52:45.776274: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.12 = (f32[30,16,254,254]{3,2,1,0}, u8[0]{0}) custom-call(f32[30,1,256,256]{3,2,1,0} %bitcast.562, f32[16,1,3,3]{3,2,1,0} %bitcast.569, f32[16]{0} %bitcast.571), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_20_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:45.903386: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.13 = (f32[30,32,125,125]{3,2,1,0}, u8[0]{0}) custom-call(f32[30,16,127,127]{3,2,1,0} %bitcast.579, f32[32,16,3,3]{3,2,1,0} %bitcast.586, f32[32]{0} %bitcast.588), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_21_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:46.060740: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.14 = (f32[30,32,60,60]{3,2,1,0}, u8[0]{0}) custom-call(f32[30,32,62,62]{3,2,1,0} %bitcast.594, f32[32,32,3,3]{3,2,1,0} %bitcast.601, f32[32]{0} %bitcast.603), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_22_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+2026-03-01 12:52:46.133316: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:549] Omitted potentially buggy algorithm eng14{k25=2} for conv %cudnn-conv-bias-activation.15 = (f32[30,16,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[30,32,30,30]{3,2,1,0} %bitcast.609, f32[16,32,3,3]{3,2,1,0} %bitcast.616, f32[16]{0} %bitcast.618), window={size=3x3}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", metadata={op_type="Conv2D" op_name="sequential_5_1/conv2d_23_1/convolution" source_file="/usr/local/lib/python3.12/dist-packages/tensorflow/python/framework/ops.py" source_line=1200}, backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kRelu","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false}
+14/14 ━━━━━━━━━━━━━━━━━━━━ 19s 1s/step - accuracy: 0.8690 - loss: 1.0450 - val_accuracy: 1.0000 - val_loss: 0.0000e+00
+[Round 36] Local train done: client=5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 11s 284ms/step - accuracy: 1.0000 - loss: 2.7643e-04 - val_accuracy: 0.9941 - val_loss: 0.0116
+[Round 36] Local train done: client=2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 9s 129ms/step - accuracy: 0.9693 - loss: 0.0784 - val_accuracy: 0.9444 - val_loss: 0.1682
+[Round 36] Local train done: client=3
+[OOD] Round 36: Client 4 OK (sim=0.9944)
+[OOD] Round 36: Client 1 OK (sim=0.9988)
+[OOD] Round 36: Client 5 EXCLUDED (sim=0.1605 < 0.5)
+[OOD] Round 36: Client 2 OK (sim=1.0000)
+[OOD] Round 36: Client 3 OK (sim=0.9964)
+[Round 36] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 224ms/step - accuracy: 0.9768 - loss: 0.0849
+Test loss=  0.08648233115673065
+Test accuracy= 0.9756967425346375
+
+[Round 36] Global test: acc=0.9757, loss=0.0865
+
+[Round 37] selected_clients=[1, 5, 2, 3, 4]
+[Round 37] Regression: distributed global weights to locals
+Epoch 2/2
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 205ms/step - accuracy: 1.0000 - loss: 4.5200e-04 - val_accuracy: 0.9730 - val_loss: 0.1458
+[Round 37] Local train done: client=1
+Epoch 2/2
+14/14 ━━━━━━━━━━━━━━━━━━━━ 4s 268ms/step - accuracy: 0.8090 - loss: 1.4111 - val_accuracy: 1.0000 - val_loss: 0.0000e+00
+[Round 37] Local train done: client=5
+Epoch 2/2
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 188ms/step - accuracy: 1.0000 - loss: 4.6861e-04 - val_accuracy: 0.9911 - val_loss: 0.0154
+[Round 37] Local train done: client=2
+Epoch 2/2
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 130ms/step - accuracy: 0.9745 - loss: 0.0698 - val_accuracy: 0.9444 - val_loss: 0.2041
+[Round 37] Local train done: client=3
+Epoch 2/2
+52/52 ━━━━━━━━━━━━━━━━━━━━ 28s 542ms/step - accuracy: 1.0000 - loss: 0.0012 - val_accuracy: 0.9710 - val_loss: 0.1653
+[Round 37] Local train done: client=4
+[OOD] Round 37: Client 1 OK (sim=0.9999)
+[OOD] Round 37: Client 5 EXCLUDED (sim=0.1442 < 0.5)
+[OOD] Round 37: Client 2 OK (sim=1.0000)
+[OOD] Round 37: Client 3 OK (sim=0.9958)
+[OOD] Round 37: Client 4 OK (sim=0.9962)
+[Round 37] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 225ms/step - accuracy: 0.9776 - loss: 0.0915
+Test loss=  0.09263052046298981
+Test accuracy= 0.9756967425346375
+
+[Round 37] Global test: acc=0.9757, loss=0.0926
+
+[Round 38] selected_clients=[5, 4, 1, 3, 2]
+[Round 38] Regression: distributed global weights to locals
+Epoch 3/3
+14/14 ━━━━━━━━━━━━━━━━━━━━ 4s 261ms/step - accuracy: 0.7874 - loss: 1.8084 - val_accuracy: 1.0000 - val_loss: 0.0000e+00
+[Round 38] Local train done: client=5
+Epoch 3/3
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 552ms/step - accuracy: 1.0000 - loss: 5.5014e-04 - val_accuracy: 0.9744 - val_loss: 0.1782
+[Round 38] Local train done: client=4
+Epoch 3/3
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 200ms/step - accuracy: 1.0000 - loss: 2.9273e-04 - val_accuracy: 0.9768 - val_loss: 0.1583
+[Round 38] Local train done: client=1
+Epoch 3/3
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 126ms/step - accuracy: 0.9854 - loss: 0.0374 - val_accuracy: 0.9514 - val_loss: 0.1688
+[Round 38] Local train done: client=3
+Epoch 3/3
+30/30 ━━━━━━━━━━━━━━━━━━━━ 5s 180ms/step - accuracy: 1.0000 - loss: 2.5869e-04 - val_accuracy: 0.9941 - val_loss: 0.0161
+[Round 38] Local train done: client=2
+[OOD] Round 38: Client 5 EXCLUDED (sim=0.1360 < 0.5)
+[OOD] Round 38: Client 4 OK (sim=0.9991)
+[OOD] Round 38: Client 1 OK (sim=1.0000)
+[OOD] Round 38: Client 3 OK (sim=0.9921)
+[OOD] Round 38: Client 2 OK (sim=1.0000)
+[Round 38] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 16s 219ms/step - accuracy: 0.9811 - loss: 0.0832
+Test loss=  0.08377538621425629
+Test accuracy= 0.9794871807098389
+
+[Round 38] Global test: acc=0.9795, loss=0.0838
+
+[Round 39] selected_clients=[1, 4, 2, 5, 3]
+[Round 39] Regression: distributed global weights to locals
+Epoch 4/4
+46/46 ━━━━━━━━━━━━━━━━━━━━ 10s 207ms/step - accuracy: 1.0000 - loss: 1.3569e-04 - val_accuracy: 0.9730 - val_loss: 0.1713
+[Round 39] Local train done: client=1
+Epoch 4/4
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 552ms/step - accuracy: 1.0000 - loss: 4.1788e-04 - val_accuracy: 0.9727 - val_loss: 0.1845
+[Round 39] Local train done: client=4
+Epoch 4/4
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 186ms/step - accuracy: 1.0000 - loss: 9.5328e-05 - val_accuracy: 0.9941 - val_loss: 0.0193
+[Round 39] Local train done: client=2
+Epoch 4/4
+14/14 ━━━━━━━━━━━━━━━━━━━━ 4s 261ms/step - accuracy: 0.8289 - loss: 1.5930 - val_accuracy: 1.0000 - val_loss: 0.0000e+00
+[Round 39] Local train done: client=5
+Epoch 4/4
+51/51 ━━━━━━━━━━━━━━━━━━━━ 7s 130ms/step - accuracy: 0.9941 - loss: 0.0211 - val_accuracy: 0.9531 - val_loss: 0.1756
+[Round 39] Local train done: client=3
+[OOD] Round 39: Client 1 OK (sim=1.0000)
+[OOD] Round 39: Client 4 OK (sim=0.9989)
+[OOD] Round 39: Client 2 OK (sim=1.0000)
+[OOD] Round 39: Client 5 EXCLUDED (sim=0.1379 < 0.5)
+[OOD] Round 39: Client 3 OK (sim=0.9993)
+[Round 39] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 217ms/step - accuracy: 0.9822 - loss: 0.0809
+Test loss=  0.07968485355377197
+Test accuracy= 0.9817168116569519
+
+[Round 39] Global test: acc=0.9817, loss=0.0797
+
+[Round 40] selected_clients=[2, 3, 5, 1, 4]
+[Round 40] Regression: distributed global weights to locals
+Epoch 5/5
+30/30 ━━━━━━━━━━━━━━━━━━━━ 6s 197ms/step - accuracy: 1.0000 - loss: 8.6651e-05 - val_accuracy: 0.9941 - val_loss: 0.0151
+[Round 40] Local train done: client=2
+Epoch 5/5
+51/51 ━━━━━━━━━━━━━━━━━━━━ 6s 116ms/step - accuracy: 0.9953 - loss: 0.0216 - val_accuracy: 0.9497 - val_loss: 0.1888
+[Round 40] Local train done: client=3
+Epoch 5/5
+14/14 ━━━━━━━━━━━━━━━━━━━━ 5s 330ms/step - accuracy: 0.8199 - loss: 1.9930 - val_accuracy: 1.0000 - val_loss: 0.0000e+00
+[Round 40] Local train done: client=5
+Epoch 5/5
+46/46 ━━━━━━━━━━━━━━━━━━━━ 9s 184ms/step - accuracy: 1.0000 - loss: 2.6790e-04 - val_accuracy: 0.9730 - val_loss: 0.1790
+[Round 40] Local train done: client=1
+Epoch 5/5
+52/52 ━━━━━━━━━━━━━━━━━━━━ 29s 558ms/step - accuracy: 1.0000 - loss: 2.4204e-04 - val_accuracy: 0.9693 - val_loss: 0.1998
+[Round 40] Local train done: client=4
+[OOD] Round 40: Client 2 OK (sim=1.0000)
+[OOD] Round 40: Client 3 OK (sim=0.9992)
+[OOD] Round 40: Client 5 EXCLUDED (sim=0.1534 < 0.5)
+[OOD] Round 40: Client 1 OK (sim=1.0000)
+[OOD] Round 40: Client 4 OK (sim=0.9996)
+[Round 40] Aggregation: updated global model with FedAvg over 4 clients
+71/71 ━━━━━━━━━━━━━━━━━━━━ 15s 214ms/step - accuracy: 0.9821 - loss: 0.0814
+Test loss=  0.08003125339746475
+Test accuracy= 0.9821627736091614
+
+[Round 40] Global test: acc=0.9822, loss=0.0800
+
+[Federated] Finished at round=40
+[Federated] Last global acc=0.9822, loss=0.0800
+71/71 ━━━━━━━━━━━━━━━━━━━━ 17s 223ms/step
+  Plots saved to ./.env/plot/task4_exp5_animal_faces/
+
+============================================================
+  All Task 4 experiments completed!
+  Summary:  ./.env/plot/task4_summary.txt
+  Details:  ./.env/plot/task4_*/results.txt
+  Plots:    ./.env/plot/task4_*/
+============================================================

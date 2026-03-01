@@ -4,10 +4,30 @@
 
 import tensorflow as tf
 
+# Configuration classes for the Federated Learning + OOD Detection Lab (Lab 3).
+# These classes define parameters for:
+# 1. Federated learning simulation (ConfigFederated): rounds, clients, participants, dataset allocation
+# 2. Out-of-Distribution detection (ConfigOod): HDC parameters, OOD thresholds, client labeling
+# 3. CNN Model (ConfigModel): training parameters (epochs, activation, optimizer, loss)
+# 4. Dataset (ConfigDataset): image preprocessing, batch size, input shape
+# 5. Plotting (ConfigPlot): visualization parameters
 
 exception_msg = "Config.py incorrect parameterized: "
 
 class ConfigFederated():
+    """
+    Configuration for Federated Learning environment (Lab 3: Phase 1 & 2).
+    
+    Attributes relate to the FL simulation parameters from section 2.2.3:
+    - debug: Enable verbose logging of FL operations
+    - save/load: Persist model states between training rounds (for resuming Phase 1 -> Phase 2)
+    - clients: Total number of clients in simulation (global model + local models)
+    - rounds: Number of federated training rounds
+    - participants: How many local models participate each round
+    - host_id: Identifier of the global model (server)
+    - client_to_dataset: Maps each client to dataset indices (for data heterogeneity)
+    - ood_round: When to start OOD detection in Phase 2
+    """
     debug = False
     repeats = 1
     
@@ -86,9 +106,24 @@ class ConfigFederated():
         if(len(client_to_dataset) == clients): 
             self.client_to_dataset = client_to_dataset
         else:
-            raise Exception(exception_msg, "Not all clients are assigned a dataset, length of ")
+            raise Exception(exception_msg, "Not all clients are assigned a dataset, length of "))
 
 class ConfigOod():
+    """
+    Configuration for Out-of-Distribution (OOD) Detection (Lab 3: Phase 2).
+    
+    Uses Hyperdimensional Computing (HDC) via HDFF to detect malicious or anomalous
+    local model updates by comparing them to the global model before aggregation.
+    Related to section 3.3 (Task 3) and 3.4 (Task 4 experiments).
+    
+    Attributes:
+    - enabled: Activates OOD detection mechanism during FL rounds
+    - hyper_size: Dimensionality of hypervectors for HDC projection
+    - id_client: List of client IDs that have in-distribution (benign) data
+    - ood_client: List of client IDs that have out-of-distribution (malicious/poisoned) data
+    - ood_protection: Whether to exclude OOD clients from aggregation
+    - ood_protection_thres: Cosine similarity threshold; below = client excluded as OOD
+    """
     debug = True
     hdc_debug = True
     enabled = False
@@ -137,13 +172,27 @@ class ConfigOod():
 
     
 class ConfigModel():
+    """
+    Configuration for CNN Model used in Lab 3.
+    
+    Defines training hyperparameters for the CNN model that will be distributed
+    across local clients and the global server in the federated learning environment.
+    Related to section 2.1.1 (CNN Model).
+    
+    Attributes:
+    - epochs: Number of training epochs per local client per round (recommended: 1 for FL)
+    - activation: Activation function for hidden layers
+    - activation_out: Activation function for output layer (softmax for binary classification)
+    - optimizer: Optimization algorithm (Adam recommended)
+    - loss: Loss function (categorical crossentropy for multi-class)
+    """
     debug = True
     
     epochs = 15
     activation = 'relu'
     activation_out = 'softmax'
     optimizer = 'adam'
-    loss = 'categorical_crossentropy'   # categorical_crossentropy
+    loss = 'categorical_crossentropy'
     
     def __init__(self, debug, epochs, activation, activation_out, optimizer, loss) -> None:
         """
@@ -176,6 +225,19 @@ class ConfigModel():
         self.loss = loss
 
 class ConfigDataset():
+    """
+    Configuration for Dataset handling and preprocessing (Lab 3).
+    
+    Controls image resizing, batch size, train/val/test split, and class count.
+    Related to section 2.1.2 (Datasets) - supports Alzheimer, Brain Tumor, Pneumonia datasets.
+    
+    Attributes:
+    - batch_size: Images per batch during training
+    - image_size: Target image dimension (must match input_shape)
+    - input_shape: (H, W, channels) expected by CNN model
+    - split: Fraction for test/validation split (0.25 = 25% validation, 25% test, 50% train)
+    - number_of_classes: 2 for binary classification (sick/healthy)
+    """
     debug = True
     
     batch_size = 64                          
@@ -222,6 +284,12 @@ class ConfigDataset():
             raise Exception(exception_msg, "number of classes must be greater than 0")
             
 class ConfigPlot():
+    """
+    Configuration for plotting results and visualizations.
+    
+    Controls whether to save plots showing model performance (accuracy, loss curves)
+    and dataset samples. Related to section 2.2.4 (Plot, Diagrams & Producing Results).
+    """
     plot = True
     path = './.env/plot'
     img_per_class = 10          # Images per class that will be plotted. 
