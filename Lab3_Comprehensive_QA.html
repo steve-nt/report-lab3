@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3: Comprehensive Q&A - Federated Learning & OOD Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-left: 6px solid #764ba2;
+            padding-left: 20px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 2px solid #667eea;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            padding-left: 10px;
+        }
+
+        .qa-block {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .qa-block:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .question {
+            color: #667eea;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .question::before {
+            content: "Q:";
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .answer {
+            color: #2c3e50;
+            font-size: 1.05em;
+            padding-left: 50px;
+        }
+
+        .answer::before {
+            content: "A:";
+            color: #764ba2;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+            font-size: 0.95em;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .note::before {
+            content: "📝 Note: ";
+            font-weight: bold;
+            color: #856404;
+        }
+
+        .important {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .important::before {
+            content: "⚠️ Important: ";
+            font-weight: bold;
+            color: #721c24;
+        }
+
+        .tip {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .tip::before {
+            content: "💡 Tip: ";
+            font-weight: bold;
+            color: #155724;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        table tr:hover {
+            background: #e3f2fd;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 40px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-style: italic;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 3px solid #667eea;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .answer {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Lab 3: Comprehensive Q&A Guide</h1>
+        <h2 style="text-align: center; color: #764ba2; margin-top: 0;">Detection of Poisoning Attacks in Federated Learning Context</h2>
+
+        <div class="toc">
+            <h3>📑 Table of Contents</h3>
+            <ul>
+                <li><a href="#section1">1. Federated Learning Fundamentals</a></li>
+                <li><a href="#section2">2. Project Structure & Configuration</a></li>
+                <li><a href="#section3">3. Out-of-Distribution (OOD) Detection</a></li>
+                <li><a href="#section4">4. Hyperdimensional Computing (HDC) & HDFF</a></li>
+                <li><a href="#section5">5. Poisoning Attacks & Defense Mechanisms</a></li>
+                <li><a href="#section6">6. Experimental Setup & Methodology</a></li>
+                <li><a href="#section7">7. Implementation Details</a></li>
+                <li><a href="#section8">8. Results & Analysis</a></li>
+                <li><a href="#section9">9. Practical Usage & Troubleshooting</a></li>
+                <li><a href="#section10">10. Advanced Topics & Research Questions</a></li>
+            </ul>
+        </div>
+
+        <!-- SECTION 1: FEDERATED LEARNING FUNDAMENTALS -->
+        <h2 id="section1">1. Federated Learning Fundamentals</h2>
+
+        <div class="qa-block">
+            <div class="question">What is Federated Learning?</div>
+            <div class="answer">
+                Federated Learning (FL) is a machine learning paradigm where multiple clients (e.g., hospitals, devices) collaboratively train a shared global model without sharing their raw data. Each client trains on its local data, then sends only model updates (weights) to a central server, which aggregates them to improve the global model. This preserves data privacy while enabling collaborative learning across distributed datasets.
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does the FedAvg (Federated Averaging) algorithm work?</div>
+            <div class="answer">
+                FedAvg is the core aggregation algorithm in federated learning:
+                <ol>
+                    <li><strong>Distribution:</strong> The global model sends its weights to selected clients</li>
+                    <li><strong>Local Training:</strong> Each client trains the model on its local data for several epochs</li>
+                    <li><strong>Upload:</strong> Clients send their updated weights back to the server</li>
+                    <li><strong>Aggregation:</strong> The server averages the weights from all participating clients</li>
+                    <li><strong>Update:</strong> The averaged weights become the new global model</li>
+                </ol>
+                <div class="formula">
+                    w<sub>global</sub><sup>(t+1)</sup> = (1/n) Σ w<sub>i</sub><sup>(t)</sup>
+                </div>
+                where n is the number of participating clients and w<sub>i</sub> are the local model weights.
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are the main advantages of Federated Learning?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Privacy Preservation:</strong> Raw data never leaves the client's device</li>
+                    <li><strong>Regulatory Compliance:</strong> Helps meet GDPR, HIPAA, and other data protection regulations</li>
+                    <li><strong>Reduced Communication Costs:</strong> Only model updates (not entire datasets) are transmitted</li>
+                    <li><strong>Distributed Computing:</strong> Leverages computational power across multiple devices</li>
+                    <li><strong>Personalization:</strong> Clients can maintain personalized local models while benefiting from global knowledge</li>
+                    <li><strong>Real-World Applicability:</strong> Enables learning from data that cannot be centralized (e.g., medical records from different hospitals)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are the key challenges in Federated Learning?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Data Heterogeneity (Non-IID):</strong> Clients have different data distributions, making convergence difficult</li>
+                    <li><strong>Communication Efficiency:</strong> Network bandwidth and latency can be bottlenecks</li>
+                    <li><strong>System Heterogeneity:</strong> Clients have varying computational capabilities and availability</li>
+                    <li><strong>Security & Privacy:</strong> Vulnerable to poisoning attacks, model inversion, and membership inference</li>
+                    <li><strong>Convergence Issues:</strong> Slower and less stable convergence compared to centralized learning</li>
+                    <li><strong>Client Dropout:</strong> Clients may disconnect during training, affecting aggregation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is the difference between horizontal and vertical federated learning?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Horizontal FL:</strong> Clients have data with the same features but different samples (e.g., different hospitals with patient records having the same medical measurements). This is the most common form and is used in this lab.</li>
+                    <li><strong>Vertical FL:</strong> Clients have data with different features but overlapping samples (e.g., a bank and an e-commerce company sharing data about the same users but with different attributes).</li>
+                    <li><strong>Federated Transfer Learning:</strong> Clients have different features and different samples, requiring transfer learning techniques.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 2: PROJECT STRUCTURE & CONFIGURATION -->
+        <h2 id="section2">2. Project Structure & Configuration</h2>
+
+        <div class="qa-block">
+            <div class="question">What is the overall project structure?</div>
+            <div class="answer">
+                The project is organized into modular components:
+                <div class="code-block">
+project/
+├── config.py              # Configuration classes for all components
+├── main.py                # Main entry point for single/federated simulations
+├── run_pretrain.py        # Pre-training script (30 rounds, ID data only)
+├── run_experiment1-5.py   # Individual experiment scripts
+├── run_all.py             # Sequential execution of all experiments
+├── generate_plots.py      # Generate plots from saved results
+├── Makefile              # Setup, run, and cleanup commands
+├── dataset/
+│   ├── dataset.py        # Dataset wrapper & merging logic
+│   ├── generator.py      # TensorFlow data pipeline creation
+│   └── download/         # Dataset downloaders (Kaggle)
+├── model/
+│   └── model.py          # CNN architecture definition
+├── federated/
+│   ├── federated.py      # FL orchestration (Task 2 & 3)
+│   └── math/
+│       └── federated_math.py  # FedAvg implementation
+└── ood/
+    ├── hdff.py           # Hyperdimensional Feature Fusion
+    └── VSA.py            # Vector Symbolic Algebra operations
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are the configuration classes and what do they control?</div>
+            <div class="answer">
+                The <code>config.py</code> file contains five configuration classes:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Purpose</th>
+                            <th>Key Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ConfigFederated</code></td>
+                            <td>Federated learning setup</td>
+                            <td><code>clients</code>, <code>rounds</code>, <code>participants</code>, <code>client_to_dataset</code>, <code>ood_round</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>ConfigOod</code></td>
+                            <td>OOD detection settings</td>
+                            <td><code>enabled</code>, <code>hyper_size</code>, <code>ood_protection</code>, <code>ood_protection_thres</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>ConfigModel</code></td>
+                            <td>Neural network architecture</td>
+                            <td><code>epochs</code>, <code>activation</code>, <code>optimizer</code>, <code>loss</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>ConfigDataset</code></td>
+                            <td>Data preprocessing</td>
+                            <td><code>batch_size</code>, <code>image_size</code>, <code>input_shape</code>, <code>split</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>ConfigPlot</code></td>
+                            <td>Visualization settings</td>
+                            <td><code>plot</code>, <code>path</code>, <code>img_per_class</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I configure the client-to-dataset mapping?</div>
+            <div class="answer">
+                The <code>client_to_dataset</code> parameter in <code>ConfigFederated</code> maps each client to dataset indices. It's a list of lists where each inner list contains dataset indices for that client:
+                <div class="code-block">
+# Example 1: Global model tests on all ID data, locals train on individual datasets
+client_to_dataset = [
+    [0, 1, 2, 3],  # Client 0 (global): all ID datasets
+    [0],           # Client 1: only dataset 0 (Btumor4600)
+    [1],           # Client 2: only dataset 1 (Btumor3000)
+    [2],           # Client 3: only dataset 2 (Balzheimer5100)
+    [3]            # Client 4: only dataset 3 (Lpneumonia5200)
+]
+
+# Example 2: Client with mixed datasets
+client_to_dataset = [
+    [0, 1, 2, 3],  # Global
+    [0],           # Local 1
+    [1],           # Local 2
+    [2],           # Local 3
+    [4, 5]         # Local 4: combines datasets 4 and 5 (mixed attack)
+]
+                </div>
+                <div class="note">
+                    The global model (typically client 0) should have access to all ID datasets for comprehensive testing.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What datasets are available and how are they structured?</div>
+            <div class="answer">
+                The project includes 6 medical imaging datasets from Kaggle:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dataset</th>
+                            <th>Class</th>
+                            <th>Type</th>
+                            <th>Samples</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Brain Tumor 1</td>
+                            <td><code>Btumor4600</code></td>
+                            <td>ID</td>
+                            <td>~4,600</td>
+                            <td>Brain MRI scans (tumor/healthy)</td>
+                        </tr>
+                        <tr>
+                            <td>Brain Tumor 2</td>
+                            <td><code>Btumor3000</code></td>
+                            <td>ID</td>
+                            <td>~3,000</td>
+                            <td>Brain MRI scans (tumor/healthy)</td>
+                        </tr>
+                        <tr>
+                            <td>Alzheimer's</td>
+                            <td><code>Balzheimer5100</code></td>
+                            <td>ID</td>
+                            <td>~5,100</td>
+                            <td>Brain scans for Alzheimer's detection</td>
+                        </tr>
+                        <tr>
+                            <td>Pneumonia</td>
+                            <td><code>Lpneumonia5200</code></td>
+                            <td>ID</td>
+                            <td>~5,200</td>
+                            <td>Chest X-rays (pneumonia/normal)</td>
+                        </tr>
+                        <tr>
+                            <td>Alzheimer's Poisoned</td>
+                            <td><code>Balzheimer5100_poisoned</code></td>
+                            <td>OOD</td>
+                            <td>~5,100</td>
+                            <td>Label-flipped Alzheimer's dataset</td>
+                        </tr>
+                        <tr>
+                            <td>Animal Faces</td>
+                            <td><code>Afaces16000</code></td>
+                            <td>OOD</td>
+                            <td>~16,000</td>
+                            <td>Natural images of animal faces</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="important">
+                    The poisoned dataset has its labels flipped: "Healthy" images are labeled as "Sick" and vice versa, simulating a malicious adversary trying to corrupt the model.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I specify dataset subsets (ranges)?</div>
+            <div class="answer">
+                When creating a <code>Dataset</code> object, each dataset entry is a tuple: <code>(ID, dataset_object, ranges)</code>. The ranges parameter allows you to select specific samples:
+                <div class="code-block">
+dataset = Dataset([
+    (Btumor4600().ID, Btumor4600(), []),  
+    # Empty [] means use entire dataset
+    
+    (Lpneumonia5200().ID, Lpneumonia5200(), [[300, 500], [3600, 3800]]),  
+    # Use samples 300-500 AND samples 3600-3800 (400 total samples)
+    
+    (Balzheimer5100_poisoned().ID, Balzheimer5100_poisoned(), [[1000, 1700], [4000, 4700]]),  
+    # Use samples 1000-1700 AND 4000-4700 (1400 total poisoned samples)
+], dataset_config, plot_config)
+                </div>
+                <div class="tip">
+                    Ranges are useful for creating stealth attacks by mixing poisoned and clean data, or for creating smaller subsets for faster experimentation.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: OOD DETECTION -->
+        <h2 id="section3">3. Out-of-Distribution (OOD) Detection</h2>
+
+        <div class="qa-block">
+            <div class="question">What is Out-of-Distribution (OOD) detection?</div>
+            <div class="answer">
+                OOD detection identifies data or models that come from a different distribution than the training data. In the context of federated learning:
+                <ul>
+                    <li><strong>In-Distribution (ID):</strong> Data/models that follow the expected distribution (legitimate medical imaging data)</li>
+                    <li><strong>Out-of-Distribution (OOD):</strong> Data/models that deviate significantly (poisoned data, different domain, adversarial attacks)</li>
+                </ul>
+                The goal is to detect and exclude OOD clients before they contaminate the global model through federated averaging.
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why is OOD detection important in Federated Learning?</div>
+            <div class="answer">
+                OOD detection serves as a critical security mechanism:
+                <ul>
+                    <li><strong>Poisoning Attack Defense:</strong> Identifies malicious clients attempting to corrupt the global model with incorrect labels</li>
+                    <li><strong>Data Quality Control:</strong> Ensures all participants contribute appropriate, domain-relevant data</li>
+                    <li><strong>Domain Consistency:</strong> Prevents mixing of incompatible data types (e.g., medical images vs. natural images)</li>
+                    <li><strong>Model Integrity:</strong> Protects the global model from degradation due to bad updates</li>
+                    <li><strong>Trust & Reliability:</strong> Enables federated learning in adversarial or untrusted environments</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does OOD detection work in this implementation?</div>
+            <div class="answer">
+                The OOD detection pipeline consists of four main steps:
+                <ol>
+                    <li><strong>Feature Extraction:</strong> Extract activation patterns from each layer of the model using dummy input</li>
+                    <li><strong>Hyperdimensional Projection:</strong> Project features into a 10,000-dimensional space using random matrices</li>
+                    <li><strong>Feature Bundling:</strong> Combine layer-wise projections into a single hypervector representing the model</li>
+                    <li><strong>Similarity Computation:</strong> Calculate cosine similarity between local model hypervector and global model hypervector</li>
+                    <li><strong>Threshold Decision:</strong> If similarity &lt; threshold (0.7), flag as OOD and exclude from aggregation</li>
+                </ol>
+                <div class="formula">
+                    Similarity = cos(θ) = (Bundle<sub>local</sub> · Bundle<sub>global</sub>) / (||Bundle<sub>local</sub>|| × ||Bundle<sub>global</sub>||)
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">When is OOD detection triggered in the training process?</div>
+            <div class="answer">
+                OOD detection is controlled by the <code>ood_round</code> parameter:
+                <ul>
+                    <li><strong>Before ood_round:</strong> OOD detection is inactive. All selected clients participate normally (warmup phase)</li>
+                    <li><strong>At and after ood_round:</strong> OOD detection activates. Each client's model is checked before aggregation</li>
+                </ul>
+                <div class="code-block">
+# Example: Activate OOD detection from round 31 onwards
+federated_config = ConfigFederated(
+    rounds=35,
+    ood_round=31,  # OOD detection starts at round 31
+    ...
+)
+
+# In experiments, this allows:
+# - Rounds 1-30: Pre-training without OOD (establish baseline)
+# - Rounds 31-35: OOD active (test defense against attacks)
+                </div>
+                <div class="note">
+                    The warmup phase (pre-OOD rounds) is important for establishing a stable reference distribution of ID models before introducing adversaries.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is the OOD protection threshold and how do I choose it?</div>
+            <div class="answer">
+                The <code>ood_protection_thres</code> is the minimum cosine similarity required for a client to be accepted:
+                <ul>
+                    <li><strong>Default: 0.7</strong> - Balanced between security and false positives</li>
+                    <li><strong>Higher threshold (0.8-0.9):</strong> More permissive, allows borderline clients, reduces false positives but may miss sophisticated attacks</li>
+                    <li><strong>Lower threshold (0.5-0.6):</strong> More aggressive, catches more attacks but risks rejecting legitimate heterogeneous clients</li>
+                </ul>
+                <br>
+                <strong>Choosing the threshold:</strong>
+                <ol>
+                    <li>Run pre-training and observe ID client similarity scores (typically 0.82-0.95)</li>
+                    <li>Set threshold below the minimum ID similarity with a safety margin</li>
+                    <li>Test with known OOD clients and adjust based on detection rate</li>
+                    <li>Consider the cost of false positives (rejecting good clients) vs. false negatives (accepting bad clients)</li>
+                </ol>
+                <div class="important">
+                    The threshold creates a sharp decision boundary. Clients with similarity near the threshold (±0.05) may show variable classification across rounds.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: HYPERDIMENSIONAL COMPUTING & HDFF -->
+        <h2 id="section4">4. Hyperdimensional Computing (HDC) & HDFF</h2>
+
+        <div class="qa-block">
+            <div class="question">What is Hyperdimensional Computing (HDC)?</div>
+            <div class="answer">
+                Hyperdimensional Computing is a brain-inspired computing paradigm that represents information as very high-dimensional vectors (hypervectors), typically 10,000+ dimensions. Key properties:
+                <ul>
+                    <li><strong>High Dimensionality:</strong> Vectors have thousands of dimensions, providing vast representational capacity</li>
+                    <li><strong>Distributed Representation:</strong> Information is spread across all dimensions, providing robustness</li>
+                    <li><strong>Holographic:</strong> Each part contains information about the whole (graceful degradation)</li>
+                    <li><strong>Simple Operations:</strong> Uses basic operations (addition, multiplication, permutation) instead of complex neural computations</li>
+                    <li><strong>One-Shot Learning:</strong> Can learn from single examples due to high-dimensional space</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is Vector Symbolic Architecture (VSA)?</div>
+            <div class="answer">
+                VSA is the mathematical framework for HDC operations. The <code>VSA.py</code> class implements core operations:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Symbol</th>
+                            <th>Implementation</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Bundle</strong></td>
+                            <td>⊕</td>
+                            <td>Addition: x + y</td>
+                            <td>Combine/superpose information (creates a set)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bind</strong></td>
+                            <td>⊗</td>
+                            <td>Element-wise multiplication: x * y</td>
+                            <td>Associate/bind two concepts together</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Similarity</strong></td>
+                            <td>sim(x, y)</td>
+                            <td>Cosine similarity</td>
+                            <td>Measure similarity between hypervectors</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Normalize</strong></td>
+                            <td>norm(x)</td>
+                            <td>L2 normalization</td>
+                            <td>Convert to unit length for comparison</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+# Example VSA operations
+vsa = Vsa(debug=True)
+
+# Bundle: Superpose two hypervectors
+combined = vsa.bundle(hv1, hv2)  # hv1 + hv2
+
+# Bind: Associate two hypervectors
+bound = vsa.bind(hv1, hv2)  # hv1 * hv2
+
+# Similarity: Compare hypervectors
+sim = vsa.similarity(hv1, hv2)  # cos(θ) in [0, 1]
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is HDFF (Hyperdimensional Feature Fusion)?</div>
+            <div class="answer">
+                HDFF is a technique that uses hyperdimensional computing for neural network analysis. It works by:
+                <ol>
+                    <li><strong>Layer-wise Feature Extraction:</strong> Pass dummy input through each layer, collecting activation outputs</li>
+                    <li><strong>Dimensionality Projection:</strong> Project each layer's activations into hyperdimensional space using random matrices</li>
+                    <li><strong>Feature Fusion:</strong> Bundle (sum) all projected layers into a single hypervector representing the entire model</li>
+                    <li><strong>Model Comparison:</strong> Compare hypervectors using cosine similarity to detect OOD models</li>
+                </ol>
+                <div class="formula">
+                    Bundle<sub>model</sub> = Σ Project(Features<sub>layer i</sub>)
+                </div>
+                <strong>Key Advantages:</strong>
+                <ul>
+                    <li>No training data required (only model architecture)</li>
+                    <li>Fast comparison (single matrix multiplication per layer)</li>
+                    <li>Captures global model behavior across all layers</li>
+                    <li>Robust to minor weight perturbations</li>
+                    <li>Sensitive to systematic changes (like label-flipping)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why use 10,000 dimensions for hypervectors?</div>
+            <div class="answer">
+                The dimensionality (10,000 in this implementation) is chosen based on theoretical and empirical considerations:
+                <ul>
+                    <li><strong>Separation Property:</strong> Higher dimensions increase the angular separation between random vectors (orthogonality)</li>
+                    <li><strong>Concentration of Measure:</strong> In high dimensions, distances concentrate, making dissimilar vectors very distinguishable</li>
+                    <li><strong>Storage Capacity:</strong> Can represent ~10^1000 distinct concepts with 10,000 binary dimensions</li>
+                    <li><strong>Computational Feasibility:</strong> 10,000 is large enough for good separation but small enough for efficient computation</li>
+                    <li><strong>Empirical Results:</strong> Research shows diminishing returns beyond 10,000 dimensions for most tasks</li>
+                </ul>
+                <div class="note">
+                    You can experiment with different sizes (1,000 - 50,000) in <code>ConfigOod.hyper_size</code>. Larger values provide better separation but increase memory and computation.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How are projection matrices created and why are they important?</div>
+            <div class="answer">
+                Projection matrices transform layer activations into hyperdimensional space:
+                <div class="code-block">
+# For a layer with C channels (features):
+projection_matrix = random_normal(shape=(C, hyper_size))
+# Shape: (C, 10000) for a layer with C channels
+
+# Project layer activations:
+# activations: (batch, C) after global average pooling
+# projected = activations @ projection_matrix
+# Result: (batch, 10000) hypervector
+                </div>
+                <strong>Key Properties:</strong>
+                <ul>
+                    <li><strong>Random Initialization:</strong> Drawn from Gaussian distribution N(0, 1)</li>
+                    <li><strong>Fixed Across Rounds:</strong> Generated once and reused for consistency</li>
+                    <li><strong>Layer-Specific:</strong> Each trainable layer gets its own projection matrix</li>
+                    <li><strong>Shared Across Models:</strong> Global and local models use the same projections for fair comparison</li>
+                </ul>
+                <div class="important">
+                    Projection matrices MUST be the same for all models being compared. The implementation ensures this by generating them once from the global model and reusing them for all local models.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is the dummy input and why is it used?</div>
+            <div class="answer">
+                The dummy input is a fixed random tensor passed through the model to extract features:
+                <div class="code-block">
+# Create dummy input matching expected input shape
+input_shape = (batch_size, height, width, channels)
+# Example: (64, 256, 256, 1) for grayscale images
+
+dummy_input = np.random.randn(*input_shape).astype(np.float32)
+# Fixed random noise (seed=42 for reproducibility)
+                </div>
+                <strong>Why use random noise instead of real data?</strong>
+                <ul>
+                    <li><strong>No Data Leakage:</strong> Doesn't require access to client's private training data</li>
+                    <li><strong>Consistent Comparison:</strong> Same input for all models ensures fair comparison</li>
+                    <li><strong>Feature Activation:</strong> Random input exercises different conv filters, producing discriminative features</li>
+                    <li><strong>Efficient:</strong> Single forward pass, no need to iterate over datasets</li>
+                    <li><strong>Privacy-Preserving:</strong> Only model architecture matters, not training data</li>
+                </ul>
+                <div class="note">
+                    The dummy input is generated once and reused across all rounds to ensure consistent HDFF representations.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: POISONING ATTACKS & DEFENSE -->
+        <h2 id="section5">5. Poisoning Attacks & Defense Mechanisms</h2>
+
+        <div class="qa-block">
+            <div class="question">What is a data poisoning attack in Federated Learning?</div>
+            <div class="answer">
+                A data poisoning attack occurs when a malicious client intentionally corrupts their local training data to degrade the global model. Types of poisoning:
+                <ul>
+                    <li><strong>Label-Flipping Attack:</strong> Reverse labels (healthy → sick, sick → healthy)</li>
+                    <li><strong>Targeted Attack:</strong> Misclassify specific classes (e.g., make all tumors appear healthy)</li>
+                    <li><strong>Random Label Attack:</strong> Assign random labels to training samples</li>
+                    <li><strong>Feature Poisoning:</strong> Modify input features while keeping labels correct</li>
+                    <li><strong>Backdoor Attack:</strong> Inject triggers that cause misclassification only when present</li>
+                </ul>
+                <div class="important">
+                    In federated learning, poisoning is particularly dangerous because the server cannot inspect client data directly, only the aggregated model updates.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does label-flipping work in the poisoned dataset?</div>
+            <div class="answer">
+                The <code>Balzheimer5100_poisoned</code> dataset demonstrates a complete label-flipping attack:
+                <div class="code-block">
+# Original Alzheimer's dataset (correct labels)
+paths = ['/VeryMildDemented', '/MildDemented', '/ModerateDemented', '/NonDemented']
+labels = ['Sick', 'Sick', 'Sick', 'Healthy']
+
+# Poisoned dataset (flipped labels)
+paths = ['/VeryMildDemented', '/MildDemented', '/ModerateDemented', '/NonDemented']
+labels = ['Healthy', 'Healthy', 'Healthy', 'Sick']
+# All demented cases labeled as "Healthy"
+# Non-demented cases labeled as "Sick"
+                </div>
+                <strong>Impact on Model:</strong>
+                <ul>
+                    <li>Gradients optimize toward <em>incorrect</em> label associations</li>
+                    <li>Weights learn inverted feature representations</li>
+                    <li>When aggregated with global model, creates conflicting updates</li>
+                    <li>Global model accuracy degrades as it learns both correct and incorrect patterns</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is a mixed poisoning attack and why is it more dangerous?</div>
+            <div class="answer">
+                A mixed poisoning attack combines poisoned data with legitimate data to evade detection:
+                <div class="code-block">
+# Example: 87% poisoned + 13% legitimate
+client_to_dataset = [
+    [0, 1, 2, 3],  # Global: all ID
+    [4, 5]         # Client 5: poisoned (5000 samples) + clean (750 samples)
+]
+
+dataset = Dataset([
+    ...
+    (Balzheimer5100_poisoned().ID, Balzheimer5100_poisoned(), [[0, 5000]]),  
+    # 5000 poisoned samples
+    
+    (Lpneumonia5200().ID, Lpneumonia5200(), [[5000, 5750]]),  
+    # 750 legitimate samples
+], ...)
+                </div>
+                <strong>Why it's more dangerous:</strong>
+                <ul>
+                    <li><strong>Stealth:</strong> Similarity scores hover near threshold (0.55-0.76 vs. 0.10-0.25 for pure poisoning)</li>
+                    <li><strong>Variable Detection:</strong> May be accepted in some rounds, rejected in others</li>
+                    <li><strong>Partial Damage:</strong> Even when detected sometimes, damage accumulates in rounds when accepted</li>
+                    <li><strong>Camouflage Effect:</strong> Legitimate gradients "dilute" the poisoned signal, making it harder to detect</li>
+                </ul>
+                <div class="note">
+                    Attackers trade off attack strength for stealth. A 50-50 mix is harder to detect but also less effective at corrupting the model.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What is a domain shift attack?</div>
+            <div class="answer">
+                A domain shift attack involves training on data from a completely different domain (e.g., animal faces instead of medical images):
+                <div class="code-block">
+# Domain shift: Animal faces in a medical imaging FL system
+client_to_dataset = [
+    [0, 1, 2, 3],  # Global: medical images (ID)
+    [0], [1], [2], [3],  # Locals: medical images (ID)
+    [4]            # Malicious client: animal faces (OOD)
+]
+
+dataset = Dataset([
+    (Btumor4600().ID, Btumor4600(), []),      # ID
+    (Btumor3000().ID, Btumor3000(), []),      # ID
+    (Balzheimer5100().ID, Balzheimer5100(), []),  # ID
+    (Lpneumonia5200().ID, Lpneumonia5200(), []),  # ID
+    (Afaces16000().ID, Afaces16000(), []),    # OOD (domain shift)
+], ...)
+                </div>
+                <strong>Characteristics:</strong>
+                <ul>
+                    <li><strong>Correct Labels:</strong> Animal faces are correctly labeled (cat/dog), not adversarially mislabeled</li>
+                    <li><strong>Domain Mismatch:</strong> Natural images have completely different feature distributions than medical scans</li>
+                    <li><strong>Highly Detectable:</strong> OOD similarity scores are very low (0.02-0.15)</li>
+                    <li><strong>Not Necessarily Malicious:</strong> Could result from misconfiguration or unauthorized participation</li>
+                </ul>
+                <div class="tip">
+                    Domain shift attacks are the easiest to detect because the feature space divergence is maximum. Even with correct labels, the learned representations are completely different.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How effective is OOD detection against different attack types?</div>
+            <div class="answer">
+                Detection effectiveness varies by attack sophistication:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attack Type</th>
+                            <th>Similarity Range</th>
+                            <th>Detection Rate</th>
+                            <th>Detectability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domain Shift (Animal Faces)</td>
+                            <td>0.02 - 0.15</td>
+                            <td>100%</td>
+                            <td>⭐⭐⭐⭐⭐ Very High</td>
+                        </tr>
+                        <tr>
+                            <td>Complete Label-Flipping</td>
+                            <td>0.10 - 0.25</td>
+                            <td>100%</td>
+                            <td>⭐⭐⭐⭐☆ High</td>
+                        </tr>
+                        <tr>
+                            <td>Mixed Poisoning (87% / 13%)</td>
+                            <td>0.55 - 0.76</td>
+                            <td>20-80% (variable)</td>
+                            <td>⭐⭐⭐☆☆ Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Legitimate ID Clients</td>
+                            <td>0.82 - 0.95</td>
+                            <td>0% (not flagged)</td>
+                            <td>N/A (True Negatives)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="important">
+                    The 0.7 threshold effectively separates complete attacks from legitimate clients, but mixed attacks exploit the gap between these regions.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are the limitations of threshold-based OOD detection?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Sharp Boundary:</strong> Binary decision at threshold creates instability for borderline cases</li>
+                    <li><strong>Static Threshold:</strong> Fixed threshold may not adapt to changing client distributions over time</li>
+                    <li><strong>No Context:</strong> Each round is evaluated independently, missing temporal patterns</li>
+                    <li><strong>Vulnerable to Calibrated Attacks:</strong> Sophisticated attackers can tune poison ratio to hover near threshold</li>
+                    <li><strong>False Positives Risk:</strong> Legitimate heterogeneous clients might be falsely rejected if their data distribution is very different</li>
+                    <li><strong>Cold Start Problem:</strong> Requires pre-trained models to establish reference distribution</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 6: EXPERIMENTAL SETUP & METHODOLOGY -->
+        <h2 id="section6">6. Experimental Setup & Methodology</h2>
+
+        <div class="qa-block">
+            <div class="question">What is the purpose of the pre-training phase?</div>
+            <div class="answer">
+                Pre-training (typically 30 rounds) establishes a baseline before introducing adversaries:
+                <ul>
+                    <li><strong>Convergence:</strong> Train the global model to high accuracy (~90%) on all ID datasets</li>
+                    <li><strong>Reference Distribution:</strong> Create a stable distribution of ID model weights for OOD comparison</li>
+                    <li><strong>Save Checkpoints:</strong> Save model weights to disk for loading in subsequent experiments</li>
+                    <li><strong>Baseline Metrics:</strong> Establish baseline accuracy/loss to measure attack impact</li>
+                    <li><strong>Client Alignment:</strong> Ensure all local models converge toward shared representations</li>
+                </ul>
+                <div class="code-block">
+# Pre-training configuration
+federated_config = ConfigFederated(
+    rounds=30,           # Train for 30 rounds
+    clients=5,           # 1 global + 4 local (ID only)
+    participants=4,      # All locals participate
+    client_to_dataset=[[0,1,2,3],[0],[1],[2],[3]],
+    save=True,           # Save models
+    save_best=True,      # Save at peak accuracy
+    ood_round=40,        # OOD never activates (40 > 30)
+)
+
+ood_config = ConfigOod(
+    enabled=False,       # OOD detection OFF during pre-training
+    ...
+)
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How are the experiments structured?</div>
+            <div class="answer">
+                The experimental pipeline consists of 6 phases:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Script</th>
+                            <th>Purpose</th>
+                            <th>Key Settings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pre-training</td>
+                            <td><code>run_pretrain.py</code></td>
+                            <td>Establish baseline</td>
+                            <td>30 rounds, OOD=OFF, save models</td>
+                        </tr>
+                        <tr>
+                            <td>Experiment 1</td>
+                            <td><code>run_experiment1.py</code></td>
+                            <td>Vulnerability demonstration</td>
+                            <td>1 poisoned client, OOD=OFF</td>
+                        </tr>
+                        <tr>
+                            <td>Experiment 2</td>
+                            <td><code>run_experiment2.py</code></td>
+                            <td>Basic defense</td>
+                            <td>1 poisoned client, OOD=ON</td>
+                        </tr>
+                        <tr>
+                            <td>Experiment 3</td>
+                            <td><code>run_experiment3.py</code></td>
+                            <td>Realistic multi-client</td>
+                            <td>4 ID + 1 poisoned, OOD=ON</td>
+                        </tr>
+                        <tr>
+                            <td>Experiment 4</td>
+                            <td><code>run_experiment4.py</code></td>
+                            <td>Stealth attack</td>
+                            <td>4 ID + 1 mixed, OOD=ON</td>
+                        </tr>
+                        <tr>
+                            <td>Experiment 5</td>
+                            <td><code>run_experiment5.py</code></td>
+                            <td>Domain shift</td>
+                            <td>4 ID + 1 domain shift, OOD=ON</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why load from round 30 in experiments 1-5?</div>
+            <div class="answer">
+                Loading pre-trained models from round 30 provides several benefits:
+                <ul>
+                    <li><strong>Consistent Starting Point:</strong> All experiments start from the same converged state</li>
+                    <li><strong>Faster Execution:</strong> Skip 30 rounds of training, focus on attack evaluation</li>
+                    <li><strong>Fair Comparison:</strong> Isolate the effect of the attack/defense mechanism</li>
+                    <li><strong>Realistic Scenario:</strong> Simulates adversary joining an established FL system</li>
+                    <li><strong>Clear Impact Measurement:</strong> Any degradation is directly attributable to the attack</li>
+                </ul>
+                <div class="code-block">
+PRETRAIN_ROUND = 30
+EXPERIMENT_ROUNDS = PRETRAIN_ROUND + 5  # 35 total
+
+federated_config = ConfigFederated(
+    load=True,                  # Load pre-trained models
+    load_round=PRETRAIN_ROUND,  # Load from round 30
+    rounds=EXPERIMENT_ROUNDS,   # Train 5 more rounds (31-35)
+    ...
+)
+
+# Training loop will run: range(31, 36)
+# Results compare rounds 31-35 vs. baseline round 30
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why use load_clients parameter in some experiments?</div>
+            <div class="answer">
+                The <code>load_clients</code> parameter controls which clients load saved weights:
+                <div class="code-block">
+# Experiment 2: Only load global model
+federated_config = ConfigFederated(
+    load=True,
+    load_round=30,
+    load_clients=[0],  # Only load client 0 (global)
+    ...
+)
+# Result: Global model starts from round 30, local models start fresh
+                </div>
+                <strong>Why use this?</strong>
+                <ul>
+                    <li><strong>Fresh Optimizer State:</strong> New clients start with clean optimizer state (no momentum from pre-training)</li>
+                    <li><strong>Realistic Join Scenario:</strong> Simulates a new client joining the FL system mid-training</li>
+                    <li><strong>Avoid Stale States:</strong> Pre-trained OOD clients might have adapted to ID data, reducing attack signal</li>
+                    <li><strong>Controlled Experiment:</strong> Isolate the effect of the new client without contamination from prior rounds</li>
+                </ul>
+                <div class="tip">
+                    In experiments where OOD clients are introduced, only loading the global model ensures they start with maximum divergence from ID distribution.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I run all experiments sequentially?</div>
+            <div class="answer">
+                Use the <code>run_all.py</code> script to execute the entire experimental pipeline:
+                <div class="code-block">
+# Method 1: Using Makefile (recommended)
+cd project
+make run  # Runs run_all.py with virtual environment
+
+# Method 2: Direct Python execution
+python run_all.py
+
+# What it does:
+# 1. Cleans old saved models (fresh start)
+# 2. Runs run_pretrain.py (30 rounds)
+# 3. Runs run_experiment1.py (5 rounds)
+# 4. Runs run_experiment2.py (5 rounds)
+# 5. Runs run_experiment3.py (5 rounds)
+# 6. Runs run_experiment4.py (5 rounds)
+# 7. Runs run_experiment5.py (5 rounds)
+# 8. Saves results to .env/results/*.txt
+# 9. Saves plots to .env/plot/*.png
+                </div>
+                <strong>Expected Execution Time:</strong>
+                <ul>
+                    <li>Pre-training: ~30-60 minutes (30 rounds × 5 clients)</li>
+                    <li>Each experiment: ~5-10 minutes (5 rounds)</li>
+                    <li>Total: ~60-90 minutes on CPU, ~20-30 minutes on GPU</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 7: IMPLEMENTATION DETAILS -->
+        <h2 id="section7">7. Implementation Details</h2>
+
+        <div class="qa-block">
+            <div class="question">What is the CNN architecture used in the model?</div>
+            <div class="answer">
+                The model is a simple convolutional neural network defined in <code>model/model.py</code>:
+                <div class="code-block">
+# Architecture
+Input: (batch_size, 256, 256, 1)  # Grayscale images
+
+Conv2D(16, kernel=16x16) + ReLU → (batch, 241, 241, 16)
+MaxPooling2D(2x2) → (batch, 120, 120, 16)
+
+Conv2D(16, kernel=16x16) + ReLU → (batch, 105, 105, 16)
+MaxPooling2D(2x2) → (batch, 52, 52, 16)
+
+Conv2D(16, kernel=16x16) + ReLU → (batch, 37, 37, 16)
+MaxPooling2D(2x2) → (batch, 18, 18, 16)
+
+Conv2D(16, kernel=16x16) + ReLU → (batch, 3, 3, 16)
+MaxPooling2D(2x2) → (batch, 1, 1, 16)
+
+Flatten() → (batch, 16)
+Dense(32) + ReLU → (batch, 32)
+Dense(2) + Softmax → (batch, 2)  # Binary classification
+
+# Optimizer: Adam(clipnorm=1.0)
+# Loss: Categorical Cross-Entropy
+                </div>
+                <div class="note">
+                    The architecture is intentionally simple to focus on federated learning and OOD detection rather than achieving state-of-the-art classification accuracy.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How is data preprocessing performed?</div>
+            <div class="answer">
+                Images undergo several preprocessing steps in <code>dataset/generator.py</code>:
+                <ol>
+                    <li><strong>Grayscale Conversion:</strong> RGB → Grayscale (if not already)</li>
+                    <li><strong>Contrast Enhancement:</strong> <code>cv2.addWeighted(image, 1.5, image, -0.5, 0)</code></li>
+                    <li><strong>Sharpening:</strong> Apply 3×3 sharpening kernel</li>
+                    <li><strong>Brightness Boost:</strong> Multiply by 1.25 and clip to [0, 255]</li>
+                    <li><strong>Resize:</strong> Scale to 256×256 pixels</li>
+                    <li><strong>Normalization:</strong> Rescale to [0, 1] by dividing by 255</li>
+                </ol>
+                <div class="code-block">
+def default_processing(image):
+    # Convert to grayscale
+    if image.ndim == 3 and image.shape[-1] == 3:
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    
+    # Enhance contrast
+    image = cv2.addWeighted(image, 1.5, image, -0.5, 0)
+    
+    # Sharpen
+    kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
+    image = cv2.filter2D(image, -1, kernel)
+    
+    # Boost brightness
+    image = np.clip(image * 1.25, 0, 255)
+    
+    # Restore channel dimension
+    if image.ndim == 2:
+        image = image[:, :, np.newaxis]  # (H, W, 1)
+    
+    return image
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does the Federated class orchestrate training?</div>
+            <div class="answer">
+                The <code>Federated</code> class in <code>federated/federated.py</code> manages the FL workflow:
+                <div class="code-block">
+def run(self):
+    # 1. Initialize: Create models + bind datasets
+    self.initialize_()
+    
+    # 2. Load pre-trained models (if configured)
+    if self.federated_config.load:
+        for cid in self.models:
+            if cid in load_clients or load_clients is None:
+                self.models[cid] = load_from_disk(cid, load_round)
+    
+    # 3. Training loop
+    for round in range(start_round+1, total_rounds+1):
+        # a) Select participants
+        selected = random.sample(local_ids, participants)
+        
+        # b) Regression: Global → Locals
+        self.global_(host_id, round)
+        
+        # c) Local training
+        for cid in selected:
+            self.local_(cid, round)
+        
+        # d) OOD detection (filter malicious clients)
+        if ood_enabled and round >= ood_round:
+            selected = self.ood_detection(selected, round)
+        
+        # e) FedAvg aggregation: Locals → Global
+        self.update_(selected, round)
+        
+        # f) Global evaluation
+        self.test_global_(round)
+        
+        # g) Save best model (optional)
+        if save_best and current_acc > best_acc:
+            save_models_to_disk()
+    
+    # 4. Save final models
+    if save: save_models_to_disk()
+    
+    # 5. Plot results
+    if plot: self.result()
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does the OOD detection integrate into the training loop?</div>
+            <div class="answer">
+                OOD detection happens between local training and aggregation:
+                <div class="code-block">
+def ood_detection(self, selected_clients, round):
+    """
+    Compare each local model's HDFF signature with global model.
+    Return filtered list of accepted clients.
+    """
+    host_id = self.federated_config.host_id
+    
+    # 1. Extract global model HDFF signature
+    global_model = self.models[host_id]
+    self.hdff.feature_extraction(global_model)
+    self.hdff.feature_update(global_model)
+    self.hdff.projection_matrices(global_model)
+    global_bundle = self.hdff.feature_bundle()
+    
+    # Save projection matrices (same for all)
+    proj = self.hdff.proj
+    
+    # 2. For each local model, compute similarity
+    accepted = []
+    for cid in selected_clients:
+        local_model = self.models[cid]
+        self.hdff.feature_extraction(local_model)
+        self.hdff.feature_update(local_model)
+        self.hdff.set_projection_matrices(proj)  # Use global proj
+        local_bundle = self.hdff.feature_bundle()
+        
+        # Cosine similarity
+        sim = self.hdff.similarity(global_bundle, local_bundle)
+        self.ood_similarity_hist[cid].append(sim)
+        
+        # Security protocol: accept only if sim >= threshold
+        if ood_protection and sim < threshold:
+            print(f"OOD DETECTED: client {cid} excluded (sim={sim})")
+        else:
+            accepted.append(cid)
+    
+    return accepted  # Only accepted clients proceed to aggregation
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How are results saved and where can I find them?</div>
+            <div class="answer">
+                Results are saved in two locations:
+                <br><br>
+                <strong>1. Text Files (.env/results/):</strong>
+                <ul>
+                    <li><code>pretrain_results.txt</code> - Pre-training metrics</li>
+                    <li><code>experiment1_results.txt</code> - Experiment 1 results</li>
+                    <li><code>experiment2_results.txt</code> - Experiment 2 results</li>
+                    <li><code>experiment3_results.txt</code> - Experiment 3 results</li>
+                    <li><code>experiment4_results.txt</code> - Experiment 4 results</li>
+                    <li><code>experiment5_results.txt</code> - Experiment 5 results</li>
+                </ul>
+                <strong>2. Plots (.env/plot/):</strong>
+                <ul>
+                    <li><code>global_accuracy.png</code> - Accuracy over rounds</li>
+                    <li><code>global_loss.png</code> - Loss over rounds</li>
+                    <li><code>ood_similarity.png</code> - OOD similarity scores (if enabled)</li>
+                </ul>
+                <strong>3. Saved Models (.env/.saved/):</strong>
+                <ul>
+                    <li><code>model0_round30.keras</code> - Global model at round 30</li>
+                    <li><code>model1_round30.keras</code> - Local model 1 at round 30</li>
+                    <li>... (one file per client)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 8: RESULTS & ANALYSIS -->
+        <h2 id="section8">8. Results & Analysis</h2>
+
+        <div class="qa-block">
+            <div class="question">What are the typical results for each experiment?</div>
+            <div class="answer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Experiment</th>
+                            <th>Final Accuracy</th>
+                            <th>Change from Baseline</th>
+                            <th>OOD Detection Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pre-training</td>
+                            <td>~90%</td>
+                            <td>Baseline</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td>Exp 1 (No Defense)</td>
+                            <td>~73%</td>
+                            <td>-17 pts ❌</td>
+                            <td>0% (disabled)</td>
+                        </tr>
+                        <tr>
+                            <td>Exp 2 (OOD Single)</td>
+                            <td>~90%</td>
+                            <td>0 pts ✓</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>Exp 3 (OOD Multi)</td>
+                            <td>~90%</td>
+                            <td>0 pts ✓</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>Exp 4 (Mixed)</td>
+                            <td>~85-88%</td>
+                            <td>-3 to -5 pts ⚠️</td>
+                            <td>20-80% (variable)</td>
+                        </tr>
+                        <tr>
+                            <td>Exp 5 (Domain Shift)</td>
+                            <td>~90%</td>
+                            <td>0 pts ✓</td>
+                            <td>100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why does Experiment 1 show such severe degradation?</div>
+            <div class="answer">
+                Experiment 1 demonstrates the vulnerability of undefended federated learning:
+                <ul>
+                    <li><strong>No Defense:</strong> OOD detection is disabled, allowing poisoned updates to be aggregated</li>
+                    <li><strong>100% Attack Participation:</strong> The poisoned client is the ONLY local client (2 total: 1 global + 1 poisoned)</li>
+                    <li><strong>Direct Contamination:</strong> Every round, the global model directly averages with poisoned weights</li>
+                    <li><strong>Complete Label Flip:</strong> All 5,100 samples have reversed labels, creating maximum gradient conflict</li>
+                    <li><strong>Cumulative Damage:</strong> Each of the 5 rounds compounds the corruption</li>
+                </ul>
+                <div class="formula">
+                    w<sub>global</sub><sup>(t+1)</sup> = 0.5 × w<sub>global</sub><sup>(t)</sup> + 0.5 × w<sub>poisoned</sub><sup>(t)</sup>
+                </div>
+                The global model learns a mixture of correct and inverted patterns, resulting in ~73% accuracy (worse than random guessing if the attack were stronger).
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why is OOD detection 100% effective in Experiments 2, 3, and 5?</div>
+            <div class="answer">
+                Perfect detection occurs when the attack signal is strong and clear:
+                <br><br>
+                <strong>Experiment 2 & 3 (Label-Flipping):</strong>
+                <ul>
+                    <li><strong>Gradient Direction Reversal:</strong> Flipped labels cause weights to optimize in opposite direction</li>
+                    <li><strong>Feature Inversion:</strong> Neurons learn inverted representations (tumor=healthy, healthy=tumor)</li>
+                    <li><strong>Statistical Divergence:</strong> Weight distributions shift dramatically from ID models</li>
+                    <li><strong>Low Similarity:</strong> Cosine similarity drops to 0.10-0.25 (far below 0.7 threshold)</li>
+                </ul>
+                <strong>Experiment 5 (Domain Shift):</strong>
+                <ul>
+                    <li><strong>Maximum Feature Divergence:</strong> Animal faces vs. medical scans have no visual overlap</li>
+                    <li><strong>Different Conv Filters:</strong> Learns to detect fur, whiskers, eyes instead of anatomical structures</li>
+                    <li><strong>Extremely Low Similarity:</strong> 0.02-0.15 (lowest possible)</li>
+                    <li><strong>Domain Orthogonality:</strong> In hyperdimensional space, different domains are nearly orthogonal</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Why does Experiment 4 show variable detection?</div>
+            <div class="answer">
+                Mixed poisoning creates a "gray zone" near the threshold:
+                <ul>
+                    <li><strong>Diluted Signal:</strong> 87% poisoned + 13% clean creates moderate divergence</li>
+                    <li><strong>Threshold Hovering:</strong> Similarity scores (0.55-0.76) cluster around 0.7 threshold</li>
+                    <li><strong>Training Dynamics:</strong> As the model trains, similarity can drift across the threshold</li>
+                    <li><strong>Stochastic Effects:</strong> Random batch sampling affects which data dominates each epoch</li>
+                    <li><strong>Partial Aggregation:</strong> Legitimate gradients pull weights toward ID distribution, poisoned gradients pull away</li>
+                </ul>
+                <div class="note">
+                    This reveals a fundamental limitation of threshold-based detection: binary decisions at a fixed threshold are unstable for borderline cases.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do OOD similarity scores correlate with attack detectability?</div>
+            <div class="answer">
+                There's a clear relationship between similarity and detectability:
+                <div class="code-block">
+Similarity Range    Attack Type              Detectability
+─────────────────────────────────────────────────────────────
+0.82 - 0.95         ID Clients               Not OOD (True Negative)
+0.55 - 0.76         Mixed Poisoning          Borderline (Variable)
+0.10 - 0.25         Complete Poisoning       Highly Detectable
+0.02 - 0.15         Domain Shift             Most Detectable
+
+Threshold = 0.7 (decision boundary)
+                </div>
+                <strong>Interpretation:</strong>
+                <ul>
+                    <li><strong>&gt; 0.80:</strong> Legitimate client, high confidence</li>
+                    <li><strong>0.70 - 0.80:</strong> Borderline, may be heterogeneous ID data</li>
+                    <li><strong>0.60 - 0.70:</strong> Suspicious, possible stealth attack</li>
+                    <li><strong>&lt; 0.60:</strong> Definitely OOD, high confidence</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What does "graceful degradation" mean in the context of Experiment 4?</div>
+            <div class="answer">
+                Graceful degradation refers to the system's ability to limit damage even when defense is imperfect:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Detection Rate</th>
+                            <th>Expected Accuracy</th>
+                            <th>Degradation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>No Defense (Exp 1)</td>
+                            <td>0%</td>
+                            <td>~73%</td>
+                            <td>-17 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Partial Detection (Exp 4)</td>
+                            <td>20-80%</td>
+                            <td>~85-88%</td>
+                            <td>-3 to -5 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Full Detection (Exp 2/3)</td>
+                            <td>100%</td>
+                            <td>~90%</td>
+                            <td>0 pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <strong>Key Insight:</strong> Even with only 20-50% detection, the defense reduces damage from -17 pts to -3 to -5 pts. This demonstrates that partial protection is still valuable.
+            </div>
+        </div>
+
+        <!-- SECTION 9: PRACTICAL USAGE & TROUBLESHOOTING -->
+        <h2 id="section9">9. Practical Usage & Troubleshooting</h2>
+
+        <div class="qa-block">
+            <div class="question">How do I set up the project environment?</div>
+            <div class="answer">
+                <div class="code-block">
+# Step 1: Navigate to project directory
+cd lab3/project
+
+# Step 2: Install dependencies (creates virtual environment)
+make setup
+# This installs TensorFlow, NumPy, scikit-learn, OpenCV, matplotlib, Kaggle, etc.
+# Virtual environment location: ./venv (Linux/Mac) or .\venv (Windows)
+# Size: ~5 GB
+
+# Step 3: Configure Kaggle credentials (for dataset download)
+# Create ~/.kaggle/kaggle.json with your API token
+# Get token from: https://www.kaggle.com/settings/account
+{
+  "username": "your_kaggle_username",
+  "key": "your_kaggle_api_key"
+}
+
+# Step 4: Run experiments
+make run  # Runs all experiments sequentially
+
+# Step 5: Clean up (when done)
+make clean  # Removes virtual environment and cache
+                </div>
+                <div class="important">
+                    If you have CUDA GPU, the project will automatically use it. If not, change <code>tensorflow[and-cuda]</code> to <code>tensorflow</code> in <code>python_requirements.txt</code> before running <code>make setup</code>.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I run a single experiment instead of all?</div>
+            <div class="answer">
+                <div class="code-block">
+# Activate virtual environment first
+source venv/bin/activate  # Linux/Mac
+# OR
+.\venv\Scripts\activate  # Windows
+
+# Run specific experiment
+python run_pretrain.py     # Pre-training only
+python run_experiment1.py  # Experiment 1 only
+python run_experiment2.py  # Experiment 2 only
+# ... etc.
+
+# Deactivate when done
+deactivate
+                </div>
+                <div class="tip">
+                    If you run experiments individually, make sure to run <code>run_pretrain.py</code> first to generate saved models. Experiments 1-5 require pre-trained models to load from.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I modify experiment parameters?</div>
+            <div class="answer">
+                Open the experiment script and modify the configuration objects:
+                <div class="code-block">
+# Example: run_experiment3.py
+
+# 1. Change number of rounds
+federated_config = ConfigFederated(
+    rounds=PRETRAIN_ROUND + 10,  # Changed from +5 to +10
+    ...
+)
+
+# 2. Change OOD threshold
+ood_config = ConfigOod(
+    ood_protection_thres=0.8,  # Changed from 0.7 to 0.8
+    ...
+)
+
+# 3. Change model architecture
+model_config = ConfigModel(
+    epochs=2,  # Changed from 1 to 2
+    ...
+)
+
+# 4. Change batch size
+dataset_config = ConfigDataset(
+    batch_size=32,  # Changed from 64 to 32
+    ...
+)
+                </div>
+                <div class="note">
+                    After modifying, save the file and run: <code>python run_experiment3.py</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What if I get "No module named 'tensorflow'" error?</div>
+            <div class="answer">
+                This means the virtual environment isn't activated or dependencies aren't installed:
+                <div class="code-block">
+# Solution 1: Use Makefile (handles activation automatically)
+make run
+
+# Solution 2: Manually activate virtual environment
+source venv/bin/activate  # Linux/Mac
+.\venv\Scripts\activate   # Windows
+
+# Then run your script
+python run_experiment1.py
+
+# Solution 3: Reinstall dependencies
+make clean
+make setup
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What if I get "Out of Memory" error?</div>
+            <div class="answer">
+                Memory issues typically occur with large batch sizes or many clients:
+                <div class="code-block">
+# Solution 1: Reduce batch size
+dataset_config = ConfigDataset(
+    batch_size=32,  # Changed from 64
+    ...
+)
+
+# Solution 2: Reduce image size
+dataset_config = ConfigDataset(
+    image_size=128,  # Changed from 256
+    input_shape=(128, 128, 1),
+    ...
+)
+
+# Solution 3: Reduce number of simultaneous clients
+federated_config = ConfigFederated(
+    participants=2,  # Changed from 4
+    ...
+)
+
+# Solution 4: Use CPU only (if GPU memory is limited)
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I visualize results during/after training?</div>
+            <div class="answer">
+                Results are automatically plotted and saved:
+                <div class="code-block">
+# During training: Real-time console output
+[Round 31] Global test: acc=0.8956, loss=0.3241
+[Round 31] OOD: client 1 similarity = 0.1523
+[Round 31] OOD DETECTED: client 1 excluded (sim=0.1523 < threshold=0.7)
+
+# After training: Plots saved to disk
+.env/plot/global_accuracy.png     # Accuracy over rounds
+.env/plot/global_loss.png          # Loss over rounds
+.env/plot/ood_similarity.png       # OOD similarity (if enabled)
+
+# View plots
+# Linux/Mac: open .env/plot/global_accuracy.png
+# Windows: start .env/plot/global_accuracy.png
+
+# Generate custom plots from results
+python generate_plots.py
+# Reads .env/results/*.txt and creates plots in .env/plot/report/
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How do I add a new dataset?</div>
+            <div class="answer">
+                Create a new dataset class in <code>dataset/download/</code>:
+                <div class="code-block">
+# File: dataset/download/my_new_dataset.py
+
+from dataset.download.utils.import_kaggle import ImportKaggle
+
+class MyNewDataset(ImportKaggle):
+    def __init__(self) -> None:
+        # 1. Kaggle dataset identifier
+        KAGGLE_PATH = "username/dataset-name"
+        
+        # 2. Path to images within downloaded dataset
+        STATIC_PATH = '/path/to/images'
+        
+        # 3. Subdirectories containing images
+        paths = ['/class1', '/class2', '/class3']
+        
+        # 4. Labels for each subdirectory
+        labels = ['Label1', 'Label2', 'Label3']
+        
+        # 5. Unique identifier
+        ID = __name__
+        
+        super().__init__(ID=ID, KAGGLE_PATH=KAGGLE_PATH, 
+                         STATIC_PATH=STATIC_PATH, 
+                         paths=paths, labels=labels)
+
+# Then use in experiments:
+from dataset.download.my_new_dataset import MyNewDataset
+
+dataset = Dataset([
+    (MyNewDataset().ID, MyNewDataset(), []),
+    ...
+], dataset_config, plot_config)
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 10: ADVANCED TOPICS & RESEARCH QUESTIONS -->
+        <h2 id="section10">10. Advanced Topics & Research Questions</h2>
+
+        <div class="qa-block">
+            <div class="question">How could OOD detection be improved?</div>
+            <div class="answer">
+                Several enhancements could address current limitations:
+                <br><br>
+                <strong>1. Adaptive Thresholding:</strong>
+                <div class="code-block">
+# Dynamically adjust threshold based on ID client distribution
+threshold = mean(ID_similarities) - k * std(ID_similarities)
+# k = sensitivity parameter (e.g., 2 or 3)
+                </div>
+                <strong>2. Multi-Round Consensus:</strong>
+                <div class="code-block">
+# Accept client only if average similarity over last N rounds > threshold
+avg_sim = mean(similarities[-3:])  # Last 3 rounds
+accept = avg_sim >= threshold
+                </div>
+                <strong>3. Soft Thresholding:</strong>
+                <div class="code-block">
+# Weight client contribution by similarity
+weight = max(0, (sim - threshold) / (1 - threshold))
+weighted_update = weight * client_weights
+                </div>
+                <strong>4. Ensemble Detection:</strong>
+                <div class="code-block">
+# Combine multiple detection methods
+hdff_ood = hdff_similarity < 0.7
+loss_ood = validation_loss > threshold
+gradient_ood = gradient_norm > threshold
+accept = not (hdff_ood and loss_ood)  # Require multiple signals
+                </div>
+                <strong>5. Per-Layer Analysis:</strong>
+                <div class="code-block">
+# Analyze layers separately (early layers more stable)
+early_sim = similarity(layers[0:3])
+late_sim = similarity(layers[4:7])
+overall_sim = 0.7 * early_sim + 0.3 * late_sim  # Weight early layers more
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are alternative defense mechanisms to OOD detection?</div>
+            <div class="answer">
+                Several other approaches can defend against poisoning:
+                <br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Approach</th>
+                            <th>Pros</th>
+                            <th>Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Krum</strong></td>
+                            <td>Select client closest to others (geometric median)</td>
+                            <td>Byzantine-robust, no threshold</td>
+                            <td>Discards most updates, slow convergence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trimmed Mean</strong></td>
+                            <td>Remove top/bottom k% of updates, average rest</td>
+                            <td>Simple, effective against outliers</td>
+                            <td>Requires tuning k, vulnerable if many attackers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Median</strong></td>
+                            <td>Use median instead of mean for aggregation</td>
+                            <td>Robust to outliers</td>
+                            <td>Loses information, slower convergence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FoolsGold</strong></td>
+                            <td>Track client update history, detect sybils</td>
+                            <td>Detects coordinated attacks</td>
+                            <td>Requires multi-round history</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Differential Privacy</strong></td>
+                            <td>Add noise to gradients to limit info leakage</td>
+                            <td>Strong privacy guarantees</td>
+                            <td>Reduces accuracy, doesn't prevent poisoning</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HDFF (This Lab)</strong></td>
+                            <td>Hyperdimensional comparison of model features</td>
+                            <td>Fast, no data needed, high detection rate</td>
+                            <td>Threshold sensitivity, vulnerable to mixed attacks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does non-IID data affect OOD detection?</div>
+            <div class="answer">
+                Non-IID (Non-Independent and Identically Distributed) data means clients have different data distributions:
+                <br><br>
+                <strong>Impact on OOD Detection:</strong>
+                <ul>
+                    <li><strong>Increased False Positives:</strong> Clients with very different data distributions may have lower similarity even if legitimate</li>
+                    <li><strong>Threshold Tuning Challenge:</strong> Need to set threshold low enough to accommodate heterogeneity</li>
+                    <li><strong>Cluster Formation:</strong> ID clients may form multiple clusters instead of one tight cluster</li>
+                    <li><strong>Adaptive Methods Needed:</strong> Static threshold may not work well; need per-client or cluster-based thresholds</li>
+                </ul>
+                <strong>Example Scenarios:</strong>
+                <div class="code-block">
+# Scenario 1: Quantity Skew
+# Client 1: 10,000 samples of class A, 100 of class B
+# Client 2: 100 samples of class A, 10,000 of class B
+# Both legitimate but very different distributions
+
+# Scenario 2: Label Distribution Skew
+# Client 1: 90% healthy, 10% sick
+# Client 2: 30% healthy, 70% sick
+# Different base rates affect learned representations
+
+# Scenario 3: Feature Distribution Skew
+# Client 1: Hospital A with imaging protocol 1
+# Client 2: Hospital B with imaging protocol 2
+# Same diagnoses but different image characteristics
+                </div>
+                <div class="tip">
+                    In highly non-IID settings, consider using cluster-based thresholds or per-client baseline similarity scores.
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">Can an attacker evade OOD detection?</div>
+            <div class="answer">
+                Yes, sophisticated attackers can employ several evasion strategies:
+                <br><br>
+                <strong>1. Mixed Data Attack (Demonstrated in Exp 4):</strong>
+                <ul>
+                    <li>Mix poisoned and clean data to reduce OOD signal</li>
+                    <li>Calibrate poison ratio to hover near threshold</li>
+                    <li>Success rate: Moderate (some rounds detected, some not)</li>
+                </ul>
+                <strong>2. Gradual Poisoning:</strong>
+                <ul>
+                    <li>Start with clean data, gradually increase poison ratio over rounds</li>
+                    <li>Allows model to "adapt" to poisoned patterns slowly</li>
+                    <li>Harder to detect sudden divergence</li>
+                </ul>
+                <strong>3. Model Poisoning (not data poisoning):</strong>
+                <ul>
+                    <li>Instead of training on bad data, directly modify model weights</li>
+                    <li>Craft weights that achieve attack goal while maintaining high similarity</li>
+                    <li>Requires knowledge of detection mechanism (white-box attack)</li>
+                </ul>
+                <strong>4. Sybil Attack:</strong>
+                <ul>
+                    <li>Create multiple fake clients with same poisoned model</li>
+                    <li>If enough sybils, they dominate aggregation even if individually detected</li>
+                    <li>Requires identity verification to prevent</li>
+                </ul>
+                <strong>5. Adaptive Attack:</strong>
+                <ul>
+                    <li>Train model on poisoned data</li>
+                    <li>Fine-tune on small clean dataset to increase similarity</li>
+                    <li>Retain backdoor while appearing legitimate</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are open research questions in FL security?</div>
+            <div class="answer">
+                <ol>
+                    <li><strong>Adaptive Attacks vs. Adaptive Defenses:</strong> Can we create defenses that adapt to attacker strategies in real-time?</li>
+                    <li><strong>Certified Robustness:</strong> Can we provide formal guarantees on the maximum impact of k malicious clients?</li>
+                    <li><strong>Privacy-Preserving Detection:</strong> Can OOD detection work with secure aggregation or homomorphic encryption?</li>
+                    <li><strong>Fairness in Detection:</strong> How to avoid biasing against clients with legitimate but heterogeneous data?</li>
+                    <li><strong>Multi-Objective Optimization:</strong> How to balance accuracy, privacy, security, and fairness simultaneously?</li>
+                    <li><strong>Cross-Silo vs. Cross-Device:</strong> Do detection methods scale from few powerful clients (hospitals) to millions of devices (smartphones)?</li>
+                    <li><strong>Explainability:</strong> Can we explain why a client was flagged as OOD to facilitate debugging and trust?</li>
+                    <li><strong>Game Theory:</strong> What are the equilibria between attackers and defenders in federated settings?</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">How does this lab relate to real-world applications?</div>
+            <div class="answer">
+                The techniques studied in this lab have direct real-world applications:
+                <br><br>
+                <strong>Healthcare:</strong>
+                <ul>
+                    <li>Hospitals collaborating on disease diagnosis models without sharing patient data</li>
+                    <li>Detecting malicious hospitals providing incorrect diagnoses</li>
+                    <li>Ensuring model integrity for FDA-approved medical AI systems</li>
+                </ul>
+                <strong>Finance:</strong>
+                <ul>
+                    <li>Banks training fraud detection models across institutions</li>
+                    <li>Detecting compromised bank systems providing bad updates</li>
+                    <li>Regulatory compliance (GDPR, PCI-DSS)</li>
+                </ul>
+                <strong>Mobile Devices:</strong>
+                <ul>
+                    <li>Keyboard prediction, voice recognition trained across millions of phones</li>
+                    <li>Detecting compromised devices injecting adversarial patterns</li>
+                    <li>Privacy-preserving personalization</li>
+                </ul>
+                <strong>Autonomous Vehicles:</strong>
+                <ul>
+                    <li>Vehicles learning driving behaviors collaboratively</li>
+                    <li>Detecting hacked vehicles providing dangerous driving patterns</li>
+                    <li>Safety-critical model integrity</li>
+                </ul>
+                <strong>IoT Networks:</strong>
+                <ul>
+                    <li>Smart home devices learning user preferences</li>
+                    <li>Detecting compromised IoT devices in botnet attacks</li>
+                    <li>Bandwidth-constrained model updates</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-block">
+            <div class="question">What are the ethical considerations in FL security research?</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Dual-Use Concern:</strong> Poisoning attack techniques could be used maliciously; research must balance disclosure with security</li>
+                    <li><strong>False Accusations:</strong> Incorrectly flagging legitimate clients as malicious could have serious consequences (e.g., hospital losing access)</li>
+                    <li><strong>Privacy vs. Security Trade-off:</strong> Some detection methods (e.g., analyzing gradients) may reveal private information</li>
+                    <li><strong>Fairness:</strong> Aggressive detection might discriminate against clients with unusual but legitimate data distributions</li>
+                    <li><strong>Accountability:</strong> Who is responsible if a deployed FL system is poisoned? The server? Malicious client? Defense designer?</li>
+                    <li><strong>Transparency:</strong> Should clients be informed when they're flagged as OOD? How much explanation should be provided?</li>
+                    <li><strong>Regulatory Compliance:</strong> Security measures must not violate data protection regulations (GDPR, HIPAA)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>🎓 End of Comprehensive Q&A Guide</h3>
+            <p><strong>Lab 3:</strong> Detection of Poisoning Attacks in Federated Learning Context</p>
+            <p><strong>Topics Covered:</strong> Federated Learning, Out-of-Distribution Detection, Hyperdimensional Computing, HDFF, Poisoning Attacks, Defense Mechanisms, Experimental Methodology, Implementation Details, Results Analysis, Advanced Topics</p>
+            <p><strong>Total Questions:</strong> 60+ comprehensive Q&A pairs covering all aspects of the lab</p>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #888;">
+                For additional questions or clarifications, refer to the project code, configuration files, and experimental scripts.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
